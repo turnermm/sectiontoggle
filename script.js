@@ -1,14 +1,12 @@
 jQuery( document ).ready(function() {
 
-if(!JSINFO.se_act == 'show') return;
-  
-//alert('device='+device_class);
- var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";   
- //var scr_mode = jQuery('#screen__mode').css('z-index');
-// alert(scr_mode);
+ var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
+SectionToggle.check_status();
+
 
 jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#dokuwiki__content h4').each(function(index,elem ) {   
-  
+       
+       if(SectionToggle.is_active)  {
         this.onclick=function() {
            SectionToggle.checkheader(elem,index);
         };     
@@ -21,8 +19,10 @@ jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#doku
              jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
              jQuery(elem).next().toggle();
        }
-      
- 
+      }
+      else if (jQuery('p.sectoggle').length > 0){
+          jQuery('p.sectoggle').hide();
+       }
 });
 
 });
@@ -50,4 +50,16 @@ jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#doku
      }
   });
 },
+check_status: function() {   
+    if(JSINFO.se_platform == 'n') return;
+    if(JSINFO.se_act != 'show') return;
+    if(JSINFO.se_platform == 'a') {
+        this.is_active = true;               
+    }
+    if(JSINFO.se_platform == 'm' && device_class.match(/mobile/)) {
+        this.is_active = true; 
+    }       
+},
+
+is_active: false,
 };
