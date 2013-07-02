@@ -62,7 +62,7 @@ check_status: function() {
     if(JSINFO.se_platform == 'a') {
         this.is_active = true;               
     }
-    if(JSINFO.se_platform == 'm' && device_class.match(/mobile/)) {
+    else if(JSINFO.se_platform == 'm' && device_class.match(/mobile/)) {
         this.is_active = true; 
     }       
 },
