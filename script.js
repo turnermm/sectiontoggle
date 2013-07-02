@@ -9,11 +9,11 @@ if(JSINFO['se_template']  != 'dokuwiki') {
        }
        SectionToggle.is_active = false;
 }
-
+             
 jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#dokuwiki__content h4').each(function(index,elem ) {   
        
-       if(SectionToggle.is_active)  {
-        this.onclick=function() {
+       if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
+           this.onclick=function() {
            SectionToggle.checkheader(elem,index);
         };     
   
