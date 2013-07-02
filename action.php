@@ -25,8 +25,11 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
     function _jsinfo(&$event, $param) {
         global $JSINFO;
         global $ACT;
+        global $conf;
        $JSINFO['se_act'] = $ACT;
+       $JSINFO['se_template'] = $conf['template'];    
        $p = $this->getConf('platform');
-        $JSINFO['se_platform'] = $p{0};
+       $JSINFO['se_platform'] = $p{0};
+       
     }
 }

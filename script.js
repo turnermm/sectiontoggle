@@ -3,6 +3,12 @@ jQuery( document ).ready(function() {
  var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
 SectionToggle.check_status();
 
+if(JSINFO['se_template']  != 'dokuwiki') {
+     if (jQuery('p.sectoggle').length > 0){
+          jQuery('p.sectoggle').hide();
+       }
+       SectionToggle.is_active = false;
+}
 
 jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#dokuwiki__content h4').each(function(index,elem ) {   
        
@@ -51,7 +57,7 @@ jQuery('#dokuwiki__content  h1,#dokuwiki__content h2,#dokuwiki__content h3,#doku
   });
 },
 check_status: function() {   
-    if(JSINFO.se_platform == 'n') return;
+    if(JSINFO.se_platform == 'n' ) return;
     if(JSINFO.se_act != 'show') return;
     if(JSINFO.se_platform == 'a') {
         this.is_active = true;               
