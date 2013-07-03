@@ -1,8 +1,6 @@
 <?php
 /**
- * Example Action Plugin:   Example Component.
- *
- * 
+
  */
 
 if(!defined('DOKU_INC')) die();
@@ -17,10 +15,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, '_jsinfo');
     }
 
-    /**
-     * Hook js script into page headers.
-     *
-     * @author Samuele Tognini <samuele@cli.di.unipi.it>
+    /***
+     * @author Myron Turner <turnermm02@shaw.ca>
      */
     function _jsinfo(&$event, $param) {
         global $JSINFO;
