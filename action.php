@@ -1,6 +1,6 @@
 <?php
 /**
-
+  Action for sectiontoggle plugin
  */
 
 if(!defined('DOKU_INC')) die();
@@ -15,7 +15,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, '_jsinfo');
     }
 
-    /***
+    /**
      * @author Myron Turner <turnermm02@shaw.ca>
      */
     function _jsinfo(&$event, $param) {
