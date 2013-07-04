@@ -49,7 +49,7 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
            list($state,$match) = $data;
             switch ($state) {          
               case DOKU_LEXER_SPECIAL :    
-               $renderer->doc .= '<p class="sectoggle"><button onclick = "SectionToggle.open_all();">open all</button>&nbsp;&nbsp;<button onclick = "SectionToggle.close_all();">close all</button></p>';     // ptype = 'block'
+               $renderer->doc .= '<p class="sectoggle"><button onclick = "SectionToggle.open_all();" style="white-space:nowrap;" >open all</button>&nbsp;&nbsp;<button onclick = "SectionToggle.close_all();" style="white-space:nowrap;" >close all</button></p>';     // ptype = 'block'
                return true;
             }
         }
