@@ -24,7 +24,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $conf;
         
        $JSINFO['se_act'] = $ACT;    
-       $JSINFO['se_template'] = $this->getConf('type') ? 'override' : $conf['template'];    
+       $JSINFO['se_template'] =  $conf['template'];    
        $p = $this->getConf('platform');
        $JSINFO['se_platform'] = $p{0};
        $p = $this->getConf('platform');
@@ -38,10 +38,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
           $JSINFO['se_device'] = "";
        }
        $JSINFO['se_suspend'] = $this->getConf('suspend');
-       if($JSINFO['se_template'] != 'dokuwiki' && $JSINFO['se_type'] == 'none') {
-          $JSINFO['se_suspend'] = 1;
-       }
-       elseif($JSINFO['se_template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template with different div container       
+       if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template with different div container       
            $JSINFO['se_template'] = 'other';           
            if(trim($this->getConf('name')) == false) {
                $JSINFO['se_name'] = '_empty_';
