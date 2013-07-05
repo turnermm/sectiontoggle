@@ -30,6 +30,9 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $p = $this->getConf('platform');
        $headers = $this->getConf('headers');
        $JSINFO['se_headers'] = $headers{1};       
+       $xcl_headers = $this->getConf('xcl_headers');        
+       $xcl_headers = str_replace('h',"",$xcl_headers);       
+       $JSINFO['se_xcl_headers'] = $xcl_headers;       
        $JSINFO['se_type'] = $this->getConf('type');
        if($conf['template'] != 'dokuwiki') {
            $JSINFO['se_device'] = $this->device_type() ;
@@ -51,6 +54,9 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        }
        else {
          $JSINFO['se_name'] = '_empty_';
+         if($conf['template'] != 'dokuwiki') {
+            $JSINFO['se_suspend'] = "1";
+         }
        }
          
     }

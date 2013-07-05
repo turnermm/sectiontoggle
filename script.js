@@ -78,6 +78,14 @@ check_status: function() {
 set_headers: function() {
     var nheaders = parseInt(JSINFO['se_headers'])+1; 
 
+    var xclheaders=new Array(0,0,0,0,0,0,0);    
+    if(JSINFO['se_xcl_headers']) {
+        xcl = JSINFO['se_xcl_headers'].split(',');
+        for(var i =0; i<xcl.length; i++) {
+           xclheaders[xcl[i]] = 1;
+        }
+    }
+    
     var which_id =  '#dokuwiki__content';           
     if(JSINFO['se_name'] !=  '_empty_' && JSINFO['se_template'] == 'other') {
       which_id = JSINFO['se_name'];
@@ -85,6 +93,7 @@ set_headers: function() {
 
     var id_string = "";
     for (var i = 1; i < nheaders; i++) {
+        if(xclheaders[i]) continue;
         id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }

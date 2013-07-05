@@ -4,3 +4,4 @@ $lang['type'] ="To use a template other than the standard dokuwiki template, you
 $lang['name'] ="Name of the class or id which identifies the enclosing div.";
 $lang['headers'] ="Smallest header to activate as toggle.   All headers between <b>h1</b> and this setting will be toggles. The default is <b>h4</b>.";
 $lang['suspend'] ="If set to true the plugin will be inactivated and no toggles will be set.";
+$lang['xcl_headers'] = "Check off any headers that should not  be converted to toggles.";
