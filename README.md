@@ -5,4 +5,4 @@ Dokuwiki plugin to toggle (hide and show) sections by clicking on section header
 
 
 
-This plugin requires jquery and the new dokuwiki template.
+
