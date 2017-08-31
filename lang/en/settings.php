@@ -6,3 +6,5 @@ $lang['headers'] ="Smallest header to activate as toggle.   All headers between 
 $lang['suspend'] ="If set to true the plugin will be inactivated and no toggles will be set.";
 $lang['xcl_headers'] = "Check off any headers that should not  be converted to toggles.";
 $lang['mobile_alt'] = "An alternate template installed for phones, in case your preferred template does not support phones.";
+$lang['tablet_alt'] = 'Use the alternate template for tablets';
+

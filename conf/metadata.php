@@ -6,3 +6,4 @@ $meta['headers']  = array('multichoice','_choices' => array('h1','h2','h3','h4',
 $meta['suspend'] = array('onoff');
 $meta['xcl_headers']  = array('multicheckbox','_choices' => array('h1','h2','h3','h4','h5','h6'));
 $meta['mobile_alt'] = array('string');
+$meta['tablet_alt'] = array('onoff');

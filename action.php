@@ -37,7 +37,11 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            $JSINFO['se_device'] = $this->device_type() ;
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
-               $conf['template'] = $this->getConf('mobile_alt');
+               $alt_mobile = $this->getConf('mobile_alt');
+                $alt_template_dir = tpl_incdir($alt_mobile);                      
+                if(file_exists($alt_template_dir)) {
+                    $conf['template'] = $this->getConf('mobile_alt');
+                }  
            }
        }
        else {
@@ -69,8 +73,10 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
         if($deviceType !== 'computer') {
             if($deviceType =='tablet') {
+                if($this->getConf('tablet_alt')) return 'phone';
                 return 'mobile';
-            }
+            } 
+            
             return  $deviceType;
         }
         return 'desktop';
