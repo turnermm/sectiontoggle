@@ -36,7 +36,7 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
     }
 
 
-    function handle($match, $state, $pos, &$handler){
+    function handle($match, $state, $pos, Doku_Handler $handler){
        $match = substr($match,10,-2);       
         switch ($state) {   
           case DOKU_LEXER_SPECIAL :
@@ -46,7 +46,7 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
     }
 
 
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
            list($state,$match) = $data;
             switch ($state) {          
