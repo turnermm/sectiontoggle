@@ -91,6 +91,10 @@ set_headers: function() {
       which_id = JSINFO['se_name'];
     }
 
+    if (jQuery('div #section__toggle').length > 0){
+          which_id =  '#section__toggle';             
+    }             
+    which_id = 'div ' + which_id;
     var id_string = "";
     for (var i = 1; i < nheaders; i++) {
         if(xclheaders[i]) continue;
