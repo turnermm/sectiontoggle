@@ -23,8 +23,11 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $ACT;
         global $conf;
         
-       $JSINFO['se_act'] = $ACT;    
+       $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
+       if($JSINFO['se_template'] == 'bootstrap3' && !$ACT) {
+           $JSINFO['se_act'] = 'show';   
+       }
        $p = $this->getConf('platform');
        $JSINFO['se_platform'] = $p{0};
        $headers = $this->getConf('headers');
