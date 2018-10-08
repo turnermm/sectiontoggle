@@ -31,11 +31,13 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
 
     function connectTo($mode) {
       $this->Lexer->addSpecialPattern('~~stoggle_buttons~~',$mode,'plugin_sectiontoggle');
-
+     $this->Lexer->addSpecialPattern('~~stoggle_openDIV~~',$mode,'plugin_sectiontoggle');
+     $this->Lexer->addSpecialPattern('~~stoggle_closeDIV~~',$mode,'plugin_sectiontoggle');
     }
 
 
     function handle($match, $state, $pos, Doku_Handler $handler){
+       $match = substr($match,10,-2);       
         switch ($state) {   
           case DOKU_LEXER_SPECIAL :
            return array($state, $match);
@@ -49,7 +51,15 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
            list($state,$match) = $data;
             switch ($state) {          
               case DOKU_LEXER_SPECIAL :    
+               if($match == 'buttons') { 
                $renderer->doc .= '<p class="sectoggle"><button onclick = "SectionToggle.open_all();" style="white-space:nowrap;" >open all</button>&nbsp;&nbsp;<button onclick = "SectionToggle.close_all();" style="white-space:nowrap;" >close all</button></p>';     // ptype = 'block'
+                }
+                elseif($match == 'openDIV') {
+                   $renderer->doc .= "\n<div id='section__toggle'>\n";                    
+                }                
+                elseif($match == 'closeDIV') {
+                   $renderer->doc .= "\n</div>\n";                    
+                }                                
                return true;
             }
         }
