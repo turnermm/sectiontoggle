@@ -23,13 +23,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $ACT;
         global $conf;
         
-       $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini'; 
-	   msg($tpl_ini);
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
-        msg($JSINFO['se_template']);
-	   $stored_templates = parse_ini_file($tpl_ini,true);
-	   msg(print_r($stored_templates[$conf['template']],1));
        if($JSINFO['se_template'] == 'bootstrap3' && !$ACT) {
            $JSINFO['se_act'] = 'show';   
        }
@@ -51,11 +46,15 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                     $conf['template'] = $this->getConf('mobile_alt');
                 }  
            }
+		    
        }
        else {
           $JSINFO['se_device'] = "";
        }
        $JSINFO['se_suspend'] = $this->getConf('suspend');
+	   if($conf['template'] != 'dokuwiki') {
+	       if($this->check_ini()) return;
+	   }
        if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template with different div container       
            $JSINFO['se_template'] = 'other';           
            if(trim($this->getConf('name')) == false) {
@@ -89,4 +88,24 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         }
         return 'desktop';
     }  
+    function check_ini(){
+	    global $JSINFO;
+        global $conf;
+	    $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini';
+		msg($tpl_ini);
+	    if(file_exists($tpl_ini)) {
+		   $stored_templates = parse_ini_file($tpl_ini,true);
+		   
+		   if(isset($stored_templates[$conf['template']])) {
+			   $type = trim($stored_templates[$conf['template']]['type']);
+			   $name = trim($stored_templates[$conf['template']]['name']);
+			   if(!$type) return false; 
+			   $JSINFO['se_template'] = 'other';
+			  $JSINFO['se_type'] = $type;
+			  $JSINFO['se_name'] = $type == 'div' ? "#$name" : ".$name"; 
+			  return true;
+		   }   
+	    }
+      return false;		
+	}	
 }
