@@ -21,6 +21,7 @@ jQuery( document ).ready(function() {
             }
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
+               if( typeof(jQuery(elem).next().html())  === 'undefined') return; // false;
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);

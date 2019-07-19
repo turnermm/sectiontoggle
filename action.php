@@ -4,7 +4,7 @@
  */
 
 if(!defined('DOKU_INC')) die();
-
+if(!defined('DOKU_PLUGIN')) define( 'DOKU_PLUGIN','DOKU_INC' . '/lib/plugins/');
 
 class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 
@@ -23,8 +23,13 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $ACT;
         global $conf;
         
+       $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini'; 
+	   msg($tpl_ini);
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
+        msg($JSINFO['se_template']);
+	   $stored_templates = parse_ini_file($tpl_ini,true);
+	   msg(print_r($stored_templates[$conf['template']],1));
        if($JSINFO['se_template'] == 'bootstrap3' && !$ACT) {
            $JSINFO['se_act'] = 'show';   
        }
