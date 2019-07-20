@@ -40,11 +40,16 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            $JSINFO['se_device'] = $this->device_type() ;
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
-               $alt_mobile = $this->getConf('mobile_alt');
+               $alt_mobile = trim($this->getConf('mobile_alt'));
+               if(!isset($alt_mobile)) { 
+                   $alt_mobile = $conf['template']; 
+               }
+               else {
                 $alt_template_dir = tpl_incdir($alt_mobile);                      
                 if(file_exists($alt_template_dir)) {
                     $conf['template'] = $this->getConf('mobile_alt');
                 }  
+           }
            }
 		    
        }
@@ -92,7 +97,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	    global $JSINFO;
         global $conf;
 	    $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini';
-		msg($tpl_ini);
+		//msg($tpl_ini);
 	    if(file_exists($tpl_ini)) {
 		   $stored_templates = parse_ini_file($tpl_ini,true);
 		   
@@ -102,7 +107,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 			   if(!$type) return false; 
 			   $JSINFO['se_template'] = 'other';
 			  $JSINFO['se_type'] = $type;
-			  $JSINFO['se_name'] = $type == 'div' ? "#$name" : ".$name"; 
+			  $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
+              //msg($JSINFO['se_name']); 
 			  return true;
 		   }   
 	    }
