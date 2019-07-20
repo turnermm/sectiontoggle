@@ -36,22 +36,22 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $xcl_headers = str_replace('h',"",$xcl_headers);       
        $JSINFO['se_xcl_headers'] = $xcl_headers;       
        $JSINFO['se_type'] = $this->getConf('type');
+       
        if($conf['template'] != 'dokuwiki') {
            $JSINFO['se_device'] = $this->device_type() ;
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
-               $alt_mobile = trim($this->getConf('mobile_alt'));
-               if(!isset($alt_mobile)) { 
-                   $alt_mobile = $conf['template']; 
+               if(empty($alt_mobile)) { 
+                   $alt_mobile =  $JSINFO['se_template'];                  
                }
                else {
+                $alt_mobile  = $this->getConf('mobile_alt');                 
                 $alt_template_dir = tpl_incdir($alt_mobile);                      
                 if(file_exists($alt_template_dir)) {
-                    $conf['template'] = $this->getConf('mobile_alt');
+                    $conf['template'] = $alt_mobile;                    
                 }  
            }
            }
-		    
        }
        else {
           $JSINFO['se_device'] = "";
