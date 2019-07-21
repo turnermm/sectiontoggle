@@ -36,9 +36,14 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $xcl_headers = str_replace('h',"",$xcl_headers);       
        $JSINFO['se_xcl_headers'] = $xcl_headers;       
        $JSINFO['se_type'] = $this->getConf('type');
+       $alt_mobile = $this->getConf('mobile_alt');
        
        if($conf['template'] != 'dokuwiki') {
            $JSINFO['se_device'] = $this->device_type() ;
+          
+           if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer'  || $JSINFO['se_device'] == 'mobile') return;
+          //  msg($JSINFO['se_device']); 
+      
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
                if(empty($alt_mobile)) { 
@@ -56,11 +61,12 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        else {
           $JSINFO['se_device'] = "";
        }
+	   
        $JSINFO['se_suspend'] = $this->getConf('suspend');
-	   if($conf['template'] != 'dokuwiki') {
+	   if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] == 'none') { //	in template.ini?	  
 	       if($this->check_ini()) return;
 	   }
-       if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template with different div container       
+       if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template, using configuration mgr       
            $JSINFO['se_template'] = 'other';           
            if(trim($this->getConf('name')) == false) {
                $JSINFO['se_name'] = '_empty_';
@@ -83,6 +89,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         require_once 'Mobile_Detect.php';
         $detect = new Mobile_Detect;
         $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+        //msg('device = ' .$deviceType);
         if($deviceType !== 'computer') {
             if($deviceType =='tablet') {
                 if($this->getConf('tablet_alt')) return 'phone';
@@ -107,7 +114,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 			   if(!$type) return false; 
 			   $JSINFO['se_template'] = 'other';
 			  $JSINFO['se_type'] = $type;
-			  $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
+ 			  $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
               //msg($JSINFO['se_name']); 
 			  return true;
 		   }   

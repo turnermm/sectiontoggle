@@ -102,6 +102,7 @@ set_headers: function() {
         id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
+   // alert(id_string);
     this.headers = id_string;
 },
 
