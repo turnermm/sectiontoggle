@@ -42,7 +42,6 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            $JSINFO['se_device'] = $this->device_type() ;
           
            if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer'  || $JSINFO['se_device'] == 'mobile') return;
-          //  msg($JSINFO['se_device']); 
       
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
@@ -89,7 +88,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         require_once 'Mobile_Detect.php';
         $detect = new Mobile_Detect;
         $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
-        //msg('device = ' .$deviceType);
+       
         if($deviceType !== 'computer') {
             if($deviceType =='tablet') {
                 if($this->getConf('tablet_alt')) return 'phone';
@@ -104,7 +103,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	    global $JSINFO;
         global $conf;
 	    $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini';
-		//msg($tpl_ini);
+		
 	    if(file_exists($tpl_ini)) {
 		   $stored_templates = parse_ini_file($tpl_ini,true);
 		   
@@ -115,7 +114,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 			   $JSINFO['se_template'] = 'other';
 			  $JSINFO['se_type'] = $type;
  			  $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
-              //msg($JSINFO['se_name']); 
+             
 			  return true;
 		   }   
 	    }
