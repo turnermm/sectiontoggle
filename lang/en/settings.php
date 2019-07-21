@@ -7,4 +7,5 @@ $lang['suspend'] ="If set to true the plugin will be inactivated and no toggles 
 $lang['xcl_headers'] = "Check off any headers that should not  be converted to toggles.";
 $lang['mobile_alt'] = "An alternate template installed for phones, in case your preferred template does not support phones.";
 $lang['tablet_alt'] = 'Use the alternate template for tablets';
+$lang['tablet_toggle'] = 'Use toggles on tablets as well as phones';
 
