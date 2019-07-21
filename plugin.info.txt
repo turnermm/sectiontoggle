@@ -1,7 +1,7 @@
 base  sectiontoggle
 author  Myron Turner
 email  turnermm02@shaw.ca
-date 2019-07-09
+date 2019-07-21
 name  sectiontoggle
 desc  Toggles sections for display and hide by clicking headers
 url   https://www.dokuwiki.org/plugin:sectiontoggle
