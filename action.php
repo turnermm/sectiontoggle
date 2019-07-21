@@ -48,7 +48,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                   if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer' || $JSINFO['se_device'] == 'tablet') return;                   
               }  
     
-              if($JSINFO['se_device'] == 'mobile') return;
+          
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
                if(empty($alt_mobile)) { 
