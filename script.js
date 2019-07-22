@@ -21,6 +21,7 @@ jQuery( document ).ready(function() {
             }
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
+               if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);
@@ -101,6 +102,7 @@ set_headers: function() {
         id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
+   // alert(id_string);
     this.headers = id_string;
 },
 
