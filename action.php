@@ -39,16 +39,13 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $alt_mobile = $this->getConf('mobile_alt');
        
        if($conf['template'] != 'dokuwiki') {
-          // msg('getting dtype');          	  
+         
            $JSINFO['se_device'] = trim($this->device_type()) ;	
-           msg($JSINFO['se_device']);    
-
 		      if($p != 'all')
               {
                   if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer' || $JSINFO['se_device'] == 'tablet') return;                   
               }  
     
-          
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
                if(empty($alt_mobile)) { 
@@ -99,7 +96,6 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
             if($deviceType =='tablet') {
                 if($this->getConf('tablet_alt')) return 'phone';
 				if($this->getConf('tablet_toggle')) return 'phone';
-               // return 'mobile';
             } 
             
             return  $deviceType;
@@ -110,9 +106,15 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	    global $JSINFO;
         global $conf;
 	    $tpl_ini =  DOKU_PLUGIN. 'sectiontoggle/templates.ini';
-		
+		$tpl_ini_local =  DOKU_PLUGIN. 'sectiontoggle/templates.ini.local';
 	    if(file_exists($tpl_ini)) {
 		   $stored_templates = parse_ini_file($tpl_ini,true);
+           if(file_exists($tpl_ini_local)) {
+               $local_templates = parse_ini_file($tpl_ini_local,true);
+               if(!empty($local_templates)) {
+                   $stored_templates = array_merge($stored_templates,$local_templates);
+               }             
+           }   
 		   
 		   if(isset($stored_templates[$conf['template']])) {
 			   $type = trim($stored_templates[$conf['template']]['type']);
@@ -120,7 +122,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 			   if(!$type) return false; 
 			   $JSINFO['se_template'] = 'other';
 			  $JSINFO['se_type'] = $type;
- 			  $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
+              $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
              
 			  return true;
 		   }   
