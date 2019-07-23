@@ -31,6 +31,7 @@ jQuery( document ).ready(function() {
                 var $class = 'header_' + index;
                 jQuery(this).addClass($class);         
                 
+                /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
                      jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
