@@ -56,6 +56,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                 $alt_template_dir = tpl_incdir($alt_mobile);                      
                 if(file_exists($alt_template_dir)) {
                     $conf['template'] = $alt_mobile;                    
+                            	$JSINFO['alt_tpl'] = $alt_mobile; 						
                 }  
            }
            }

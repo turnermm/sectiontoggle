@@ -92,6 +92,12 @@ set_headers: function() {
     if(JSINFO['se_name'] !=  '_empty_' && JSINFO['se_template'] == 'other') {
       which_id = JSINFO['se_name'];
     }
+   
+  /* if(JSINFO['alt_tpl']) { 
+    alert(JSINFO['alt_tpl']);
+    }
+    else alert(JSINFO['se_template']);
+	*/
 
     if (jQuery('div #section__toggle').length > 0){
           which_id =  '#section__toggle';             
