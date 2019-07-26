@@ -37,6 +37,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $JSINFO['se_xcl_headers'] = $xcl_headers;       
        $JSINFO['se_type'] = $this->getConf('type');
        $alt_mobile = $this->getConf('mobile_alt');
+	   $JSINFO['no_ini'] = 0;
        
        if($conf['template'] != 'dokuwiki') {
          
@@ -56,9 +57,9 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                 $alt_template_dir = tpl_incdir($alt_mobile);                      
                 if(file_exists($alt_template_dir)) {
                     $conf['template'] = $alt_mobile;                    
-                            	$JSINFO['alt_tpl'] = $alt_mobile; 						
+      	            $JSINFO['alt_tpl'] = $alt_mobile; 						
                 }  
-           }
+               }
            }
        }
        else {
@@ -69,6 +70,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] == 'none') { //	in template.ini?	  
 	       if($this->check_ini()) return; // if true template configured in template.ini
 	   }
+	 
        if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template, using configuration mgr       
            $JSINFO['se_template'] = 'other';           
            if(trim($this->getConf('name')) == false) {
@@ -83,11 +85,9 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        else {
          $JSINFO['se_name'] = '_empty_';
          if($conf['template'] != 'dokuwiki') {
-           //$JSINFO['se_suspend'] = "1";
-		   $JSINFO['no_ini'] = "1";
+            $JSINFO['no_ini'] = "1";
          }
        }
-         
     }
     function device_type() {
         require_once 'Mobile_Detect.php';
@@ -121,10 +121,10 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 		   if(isset($stored_templates[$conf['template']])) {
 			   $type = trim($stored_templates[$conf['template']]['type']);
 			   $name = trim($stored_templates[$conf['template']]['name']);
-			   if(!$type) return false; 
+			   if(!$type || !$name) return false; 
 			   $JSINFO['se_template'] = 'other';
-			  $JSINFO['se_type'] = $type;
-              $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
+			   $JSINFO['se_type'] = $type;
+               $JSINFO['se_name'] = $type == 'id' ? "#$name" : ".$name"; 
              
 			  return true;
 		   }   
