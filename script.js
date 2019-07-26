@@ -103,10 +103,22 @@ set_headers: function() {
           which_id =  '#section__toggle';             
     }             
     which_id = 'div ' + which_id;
+//	alert(which_id);
     var id_string = "";
+		 if (jQuery(which_id).length == 0) {
+			   JSINFO['no_ini'] = 1;			  
+		   }
+/*    if(typeof JSINFO['no_ini'] == 'undefined') {		
+		 if (jQuery(which_id).length == 0) {
+			   JSINFO['no_ini'] = 1;			  
+	}
+	}*/
     for (var i = 1; i < nheaders; i++) {
         if(xclheaders[i]) continue;
-        id_string += which_id + ' h' + i;
+	   if(JSINFO['no_ini']) {
+	     id_string += '#header_h'+i;
+	   }
+	   else id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
    // alert(id_string);

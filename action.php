@@ -67,7 +67,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   
        $JSINFO['se_suspend'] = $this->getConf('suspend');
 	   if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] == 'none') { //	in template.ini?	  
-	       if($this->check_ini()) return;
+	       if($this->check_ini()) return; // if true template configured in template.ini
 	   }
        if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] != 'none') {  //another template, using configuration mgr       
            $JSINFO['se_template'] = 'other';           
@@ -83,7 +83,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        else {
          $JSINFO['se_name'] = '_empty_';
          if($conf['template'] != 'dokuwiki') {
-            $JSINFO['se_suspend'] = "1";
+           //$JSINFO['se_suspend'] = "1";
+		   $JSINFO['no_ini'] = "1";
          }
        }
          
