@@ -121,12 +121,14 @@ set_headers: function() {
     for (var i = 1; i < nheaders; i++) {
         if(xclheaders[i]) continue;
 	   if(JSINFO['no_ini']) {
+		 if( typeof header_strs[i] === 'undefined') continue;		 
 	     id_string += header_strs[i];
 	   }
 	   else id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
-   // alert(id_string);
+    id_string = id_string.replace(/,+$/,"");
+    //alert(id_string);
     this.headers = id_string;
 },
 
