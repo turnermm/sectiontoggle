@@ -1,16 +1,6 @@
-var qstr = "";
+
 jQuery( document ).ready(function() {
 
-jQuery( ":header" ).each(function(index,elem ) { 
-   $class =  jQuery(this).attr('class'); 
-   if($class.match(/sr-only|toggle/) )return;
-    var tagname = jQuery(this).prop("tagName").toLowerCase();
-    tagname = tagname + "." + $class;
-    if(qstr)  qstr  += ',';
-    qstr  += tagname;
-    
-}); 
-alert(qstr);
   if(JSINFO['se_suspend']) {
          if (jQuery('p.sectoggle').length > 0){
           jQuery('p.sectoggle').hide();
@@ -96,6 +86,7 @@ set_headers: function() {
         xcl = JSINFO['se_xcl_headers'].split(',');
         for(var i =0; i<xcl.length; i++) {
            xclheaders[xcl[i]] = 1;
+		   
         }
     }
     
@@ -115,31 +106,40 @@ set_headers: function() {
     }             
     which_id = 'div ' + which_id;
     var id_string = "";
-	   JSINFO['no_ini'] = 1;			  
-       this.headers = qstr;
-       return;
+
 	if (jQuery(which_id).length == 0) {
 		   JSINFO['no_ini'] = 1;			  
 	}	
 	
-	var jobj = jQuery('[class^=sectionedit]');
-    alert(2);
 
- 	var header_strs = Array("");
-	jQuery(jobj).each(function(index,elem ) {		
+    JSINFO['no_ini'] = 1;
+    if( JSINFO['no_ini'] ) {  
+	    var qstr = ""; 	    
+		
+        jQuery( ":header" ).each(function(index,elem ) { 
+           var $id, $class =  jQuery(this).attr('class'); 
+           if($class && $class.match(/sr-only|toggle/) ) return;
 		var tagname = jQuery(this).prop("tagName").toLowerCase();
-		var inx=index+1;
-		var header_str = tagname  + '.sectionedit' + inx;
-        header_strs[index+1] = 	header_str;	
+		   matches = tagname.match(/h(\d)/);
+		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
+		   if($class) {	            
+            tagname = tagname + "." + $class;
+		   }
+		   else {
+			   $id = jQuery(this).attr('id');
+			   tagname = tagname + "#" + $id;
+		   }
+           if(qstr)  qstr  += ',';
+           qstr  += tagname;            
 	});
+          // alert(qstr);
+           this.headers =  qstr;
+          return;  
+    }
 
     for (var i = 1; i < nheaders; i++) {
         if(xclheaders[i]) continue;
-	   if(JSINFO['no_ini']) {
-		 if( typeof header_strs[i] === 'undefined') continue;		 
-	     id_string += header_strs[i];
-	   }
-	   else id_string += which_id + ' h' + i;
+	    id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
     id_string = id_string.replace(/,+$/,"");
