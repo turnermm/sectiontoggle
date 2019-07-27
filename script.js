@@ -1,5 +1,16 @@
+var qstr = "";
 jQuery( document ).ready(function() {
 
+jQuery( ":header" ).each(function(index,elem ) { 
+   $class =  jQuery(this).attr('class'); 
+   if($class.match(/sr-only|toggle/) )return;
+    var tagname = jQuery(this).prop("tagName").toLowerCase();
+    tagname = tagname + "." + $class;
+    if(qstr)  qstr  += ',';
+    qstr  += tagname;
+    
+}); 
+alert(qstr);
   if(JSINFO['se_suspend']) {
          if (jQuery('p.sectoggle').length > 0){
           jQuery('p.sectoggle').hide();
@@ -104,12 +115,16 @@ set_headers: function() {
     }             
     which_id = 'div ' + which_id;
     var id_string = "";
-	
+	   JSINFO['no_ini'] = 1;			  
+       this.headers = qstr;
+       return;
 	if (jQuery(which_id).length == 0) {
 		   JSINFO['no_ini'] = 1;			  
 	}	
 	
-	var jobj = jQuery('[class^=sectionedit');
+	var jobj = jQuery('[class^=sectionedit]');
+    alert(2);
+
  	var header_strs = Array("");
 	jQuery(jobj).each(function(index,elem ) {		
 		var tagname = jQuery(this).prop("tagName").toLowerCase();
@@ -128,7 +143,7 @@ set_headers: function() {
         if(i < nheaders-1) id_string +=','; 
     }
     id_string = id_string.replace(/,+$/,"");
-    //alert(id_string);
+    alert(id_string);
     this.headers = id_string;
 },
 
