@@ -1,3 +1,4 @@
+
 jQuery( document ).ready(function() {
 
   if(JSINFO['se_suspend']) {
@@ -85,6 +86,7 @@ set_headers: function() {
         xcl = JSINFO['se_xcl_headers'].split(',');
         for(var i =0; i<xcl.length; i++) {
            xclheaders[xcl[i]] = 1;
+		   
         }
     }
     
@@ -104,12 +106,44 @@ set_headers: function() {
     }             
     which_id = 'div ' + which_id;
     var id_string = "";
+
+	if (jQuery(which_id).length == 0) {
+		   JSINFO['no_ini'] = 1;			  
+	}	
+	
+
+   // JSINFO['no_ini'] = 1;
+    if( JSINFO['no_ini'] ) {  
+	    var qstr = ""; 	    
+		
+        jQuery( ":header" ).each(function(index,elem ) { 
+           var $id, $class =  jQuery(this).attr('class'); 
+           if($class && $class.match(/sr-only|toggle/) ) return;
+		var tagname = jQuery(this).prop("tagName").toLowerCase();
+		   matches = tagname.match(/h(\d)/);
+		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
+		   if($class) {	            
+            tagname = tagname + "." + $class;
+		   }
+		   else {
+			   $id = jQuery(this).attr('id');
+			   tagname = tagname + "#" + $id;
+		   }
+           if(qstr)  qstr  += ',';
+           qstr  += tagname;            
+	});
+          // alert(qstr);
+           this.headers =  qstr;
+          return;  
+    }
+
     for (var i = 1; i < nheaders; i++) {
         if(xclheaders[i]) continue;
-        id_string += which_id + ' h' + i;
+	    id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
-   // alert(id_string);
+    id_string = id_string.replace(/,+$/,"");
+    //alert(id_string);
     this.headers = id_string;
 },
 
