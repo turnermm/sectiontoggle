@@ -112,7 +112,7 @@ set_headers: function() {
 	}	
 	
 
-    JSINFO['no_ini'] = 1;
+   // JSINFO['no_ini'] = 1;
     if( JSINFO['no_ini'] ) {  
 	    var qstr = ""; 	    
 		
@@ -143,7 +143,7 @@ set_headers: function() {
         if(i < nheaders-1) id_string +=','; 
     }
     id_string = id_string.replace(/,+$/,"");
-    alert(id_string);
+    //alert(id_string);
     this.headers = id_string;
 },
 
