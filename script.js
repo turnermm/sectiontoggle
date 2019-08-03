@@ -29,7 +29,7 @@ jQuery( document ).ready(function() {
                 };     
           
                 this.onmouseover = elem.style.cursor='pointer';
-                var $class = 'header_' + index;
+                var $class = 'header__' + index;
                 jQuery(this).addClass($class);         
                 
                 /* add toggle icon and  hide data below this header */
@@ -45,7 +45,7 @@ jQuery( document ).ready(function() {
 var SectionToggle = {
 checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
-  if(!classes.match(/(header_\d+)/)) return;
+  if(!classes.match(/(header__\d+)/)) return;
   
    jQuery(el).next().toggle();
   
