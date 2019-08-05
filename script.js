@@ -1,6 +1,9 @@
 
 jQuery( document ).ready(function() {
 
+  if(JSINFO['se_actual_tpl'] == 'icke-template') {	  
+     icke_OnMobileFix();
+  }
   if(JSINFO['se_suspend']) {
          if (jQuery('p.sectoggle').length > 0){
           jQuery('p.sectoggle').hide();
@@ -151,3 +154,21 @@ headers: "",
 device_class: 'desktop',
 is_active: false,
 };
+function icke_OnMobileFix() {
+	if(JSINFO['se_platform'] != 'm' && JSINFO['se_platform'] != 'a') return; 
+	var MOBILE_WIDTH = 600;
+	var SHALLOWST_SECTION_TO_HIDE = 2;
+	var DEEPEST_SECTION_TO_HIDE = 6;
+	var i;
+	var $page;
+	if (jQuery(window).width() <= MOBILE_WIDTH) {
+		$page = jQuery('#icke__page');
+		for (i = SHALLOWST_SECTION_TO_HIDE; i < DEEPEST_SECTION_TO_HIDE; i += 1) {
+			$page.find('div.level' + i).show();
+			$page.find('h' + i).click(function toggleSection() {
+				jQuery(this).next('div').toggle();
+			});
+		}
+	}
+};
+

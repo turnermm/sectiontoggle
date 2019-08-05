@@ -25,6 +25,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
+       $JSINFO['se_actual_tpl'] =  $conf['template'];	   
        if($JSINFO['se_template'] == 'bootstrap3' && !$ACT) {
            $JSINFO['se_act'] = 'show';   
        }
