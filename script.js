@@ -1,7 +1,7 @@
 
 jQuery( document ).ready(function() {
 
-  if(JSINFO['se_actual_tpl'] == 'icke-template') {	  
+ if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
   if(JSINFO['se_suspend']) {
@@ -162,7 +162,7 @@ function icke_OnMobileFix() {
 	var i;
 	var $page;
 	if (jQuery(window).width() <= MOBILE_WIDTH) {
-		$page = jQuery('#icke__page');
+		$page = jQuery('div.page');
 		for (i = SHALLOWST_SECTION_TO_HIDE; i < DEEPEST_SECTION_TO_HIDE; i += 1) {
 			$page.find('div.level' + i).show();
 			$page.find('h' + i).click(function toggleSection() {
