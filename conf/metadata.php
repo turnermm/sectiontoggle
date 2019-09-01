@@ -8,3 +8,5 @@ $meta['xcl_headers']  = array('multicheckbox','_choices' => array('h1','h2','h3'
 $meta['mobile_alt'] = array('string');
 $meta['tablet_alt'] = array('onoff');
 $meta['tablet_toggle'] = array('onoff');
+$meta['xcl_ns'] = array('string');
+$meta['xcl_pg'] = array('string');

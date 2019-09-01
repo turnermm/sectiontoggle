@@ -8,3 +8,5 @@ $conf['xcl_headers'] ='';
 $conf['mobile_alt'] = '';
 $conf['tablet_alt'] = 0;
 $conf['tablet_toggle'] = 1;
+$conf['xcl_ns'] = '';
+$conf['xcl_pg'] = '';
