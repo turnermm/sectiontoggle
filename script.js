@@ -10,7 +10,7 @@ jQuery( document ).ready(function() {
        }
     }
     else {
-            var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
+            //var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
             if(JSINFO['se_device'])  {
                 SectionToggle.device_class =  JSINFO['se_device'];
             }
@@ -37,7 +37,7 @@ jQuery( document ).ready(function() {
                 
                 /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
-                     jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
+                     //jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
                }
               }
