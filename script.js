@@ -32,7 +32,7 @@ jQuery( document ).ready(function() {
                 };     
           
                 this.onmouseover = elem.style.cursor='pointer';
-                var $class = 'header__' + index;
+                var $class = 'st_closed header__' + index;
                 jQuery(this).addClass($class);         
                 
                 /* add toggle icon and  hide data below this header */
@@ -50,7 +50,8 @@ checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
   if(!classes.match(/(header__\d+)/)) return;
   
-   jQuery(el).next().toggle();
+    jQuery(el).toggleClass('st_closed st_opened');
+    jQuery(el).next().toggle();
   
 },
 
