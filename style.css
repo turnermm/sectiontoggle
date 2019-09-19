@@ -1,10 +1,10 @@
 [class*="header__"].st_closed::before {
-	content: url('https://api.iconify.design/el:chevron-down.svg?color=%23ccc&height=16');
+	content: url('chevron-down.svg');
 	vertical-align: middle;
 	padding-right: 0.25em;
 }
 [class*="header__"].st_opened::before {
-	content: url('https://api.iconify.design/el:chevron-up.svg?color=%23ccc&height=16');
+	content: url('chevron-up.svg');
 	vertical-align: middle;
 	padding-right: 0.25em;
 }
