@@ -21,8 +21,16 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
     function _jsinfo(&$event, $param) {
         global $JSINFO;
         global $ACT;
-        global $conf;
-        
+        global $conf, $ID;
+       
+        $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns')));
+        $id = implode("|",$this->normalize_names($this->getConf('xcl_pg')));
+        if(preg_match('/^' . $NS. '$/',getNS($ID)) || preg_match('/^' . $id. '$/',$ID)) {
+      	    $JSINFO['se_suspend']=1;          
+		   return;
+        }
+        else  $JSINFO['se_suspend']=0;
+
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
        $JSINFO['se_actual_tpl'] =  $conf['template'];	   
@@ -133,4 +141,13 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
       return false;		
 	}	
 
+    function normalize_names($str) {
+        $names = explode(',',$str);
+        for ($i = 0; $i < count($names); $i++) {
+            $names[$i] = preg_replace("/^\s?:\s?/", ":",$names[$i]);
+            $names[$i] = trim ($names[$i]);
+            if($names[$i] != ':') $names[$i] = trim ($names[$i],':');
+         }
+         return $names;
+    }
 }

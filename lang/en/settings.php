@@ -8,4 +8,6 @@ $lang['xcl_headers'] = "Check off any headers that should not  be converted to t
 $lang['mobile_alt'] = "An alternate template installed for phones, in case your preferred template does not support phones.";
 $lang['tablet_alt'] = 'Use the alternate template for tablets';
 $lang['tablet_toggle'] = 'Use toggles on tablets as well as phones';
+$lang['xcl_ns'] = 'Comma separated list of namespaces to be excluded from toggles, without initial or final colons(i.e. <code>&nbsp;name:space&nbsp;</code>,  not<code>&nbsp;:name:space:&nbsp;</code>) ';
+$lang['xcl_pg'] = 'Comma separated list of  page ids to be excluded from toggles (without initial colons (i.e <code>&nbsp;page:id &nbsp;</code>,  not<code>&nbsp;:page:id&nbsp;</code> )';
 

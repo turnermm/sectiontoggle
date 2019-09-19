@@ -10,12 +10,15 @@ jQuery( document ).ready(function() {
        }
     }
     else {
-            //var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
+            if(JSINFO['se_suspend']) { 
+               SectionToggle.is_active = false;
+               return;
+            }
             if(JSINFO['se_device'])  {
                 SectionToggle.device_class =  JSINFO['se_device'];
             }
             else SectionToggle.device_class = device_class;
-    
+
             SectionToggle.check_status();
 
             if(!SectionToggle.is_active) {
