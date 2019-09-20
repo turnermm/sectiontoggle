@@ -128,6 +128,13 @@ set_headers: function() {
         jQuery( ":header" ).each(function(index,elem ) { 
            var $id, $class =  jQuery(this).attr('class'); 
            if($class && $class.match(/sr-only|toggle/) ) return;
+           $classes = $class.match(/sectionedit\d+/);       
+           if($classes) {
+               $class = $classes[0];
+              // alert('classes='+$classes +   ' class=' + $class);    
+           }
+          else return;           
+           
 		var tagname = jQuery(this).prop("tagName").toLowerCase();
 		   matches = tagname.match(/h(\d)/);
 		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
