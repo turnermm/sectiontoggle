@@ -14,6 +14,7 @@ jQuery( document ).ready(function() {
                SectionToggle.is_active = false;
                return;
             }
+            var im =  DOKU_BASE+"lib/plugins/sectiontoggle/r_arrow.png";    
             if(JSINFO['se_device'])  {
                 SectionToggle.device_class =  JSINFO['se_device'];
             }
@@ -35,12 +36,12 @@ jQuery( document ).ready(function() {
                 };     
           
                 this.onmouseover = elem.style.cursor='pointer';
-                var $class = 'st_closed header__' + index;
+                var $class = 'header__' + index;
                 jQuery(this).addClass($class);         
                 
                 /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
-                     //jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
+                     jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
                }
               }
@@ -53,15 +54,13 @@ checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
   if(!classes.match(/(header__\d+)/)) return;
   
-    jQuery(el).toggleClass('st_closed st_opened');
-    jQuery(el).next().toggle();
+   jQuery(el).next().toggle();
   
 },
 
 open_all: function () {
 jQuery(this.headers).each(function(index,elem ) {   
       if(!this.getAttribute('class').match(/toggle/)) {
-		  jQuery(elem).removeClass('st_closed').addClass('st_opened');
           jQuery(elem).next().show();
        }   
   });
@@ -70,7 +69,6 @@ jQuery(this.headers).each(function(index,elem ) {
 close_all: function () {
 jQuery(this.headers).each(function(index,elem ) {   
      if(!this.getAttribute('class').match(/toggle/)) {
-	   jQuery(elem).removeClass('st_opened').addClass('st_closed');
        jQuery(elem).next().hide();
      }
   });
