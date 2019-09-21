@@ -120,7 +120,7 @@ set_headers: function() {
 		   JSINFO['no_ini'] = 1;			  
 	}	
 	
-alert(JSINFO['no_ini']);
+
    // JSINFO['no_ini'] = 1;
     if( JSINFO['no_ini'] ) {  
 	    var qstr = ""; 	    
@@ -129,7 +129,6 @@ alert(JSINFO['no_ini']);
 		
         var $id, $class =  jQuery(this).attr('class'); 
 		var tagname = jQuery(this).prop("tagName").toLowerCase();
-		alert(tagname);
 		   matches = tagname.match(/h(\d)/);
 		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
              
@@ -137,9 +136,8 @@ alert(JSINFO['no_ini']);
            if($class) {
 			   if($class.match(/sr-only|toggle/) ) return; 
 			   var $classes = $class.match(/sectionedit\d+/); 
-               $class = $classes[0];                
-			   if($class) {	            
-				tagname = tagname + "." + $class;
+			   if($classes) {	            
+				  tagname = tagname + "." + $classes[0];
 			   }
            }
 		   else {
