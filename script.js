@@ -127,20 +127,17 @@ set_headers: function() {
 		
         jQuery( ":header" ).each(function(index,elem ) { 
            var $id, $class =  jQuery(this).attr('class'); 
+      	   var tagname = jQuery(this).prop("tagName").toLowerCase();
+		   matches = tagname.match(/h(\d)/);
+		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		
            if($class && $class.match(/sr-only|toggle/) ) return;
-           $classes = $class.match(/sectionedit\d+/);       
+           var $classes = $class.match(/sectionedit\d+/);       
            if($classes) {
                $class = $classes[0];
-              // alert('classes='+$classes +   ' class=' + $class);    
-           }
-          else return;           
-           
-		var tagname = jQuery(this).prop("tagName").toLowerCase();
-		   matches = tagname.match(/h(\d)/);
-		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
 		   if($class) {	            
             tagname = tagname + "." + $class;
 		   }
+           }
 		   else {
 			   $id = jQuery(this).attr('id');
 			   tagname = tagname + "#" + $id;
