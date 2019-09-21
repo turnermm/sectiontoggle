@@ -120,27 +120,23 @@ set_headers: function() {
 		   JSINFO['no_ini'] = 1;			  
 	}	
 	
-alert(JSINFO['no_ini']);
+
    // JSINFO['no_ini'] = 1;
     if( JSINFO['no_ini'] ) {  
 	    var qstr = ""; 	    
 		
         jQuery( ":header" ).each(function(index,elem ) { 
-		
-        var $id, $class =  jQuery(this).attr('class'); 
-		var tagname = jQuery(this).prop("tagName").toLowerCase();
-		alert(tagname);
+           var $id, $class =  jQuery(this).attr('class'); 
+      	   var tagname = jQuery(this).prop("tagName").toLowerCase();
 		   matches = tagname.match(/h(\d)/);
-		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
-             
-		  
-           if($class) {
-			   if($class.match(/sr-only|toggle/) ) return; 
-			   var $classes = $class.match(/sectionedit\d+/); 
-               $class = $classes[0];                
-			   if($class) {	            
-				tagname = tagname + "." + $class;
-			   }
+		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		
+           if($class && $class.match(/sr-only|toggle/) ) return;
+           var $classes = $class.match(/sectionedit\d+/);       
+           if($classes) {
+               $class = $classes[0];
+		   if($class) {	            
+            tagname = tagname + "." + $class;
+		   }
            }
 		   else {
 			   $id = jQuery(this).attr('id');
@@ -149,7 +145,7 @@ alert(JSINFO['no_ini']);
            if(qstr)  qstr  += ',';
            qstr  += tagname;            
 	});
-           alert(qstr);
+          // alert(qstr);
            this.headers =  qstr;
           return;  
     }
