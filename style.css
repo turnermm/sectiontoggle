@@ -1,0 +1,10 @@
+[class*="header__"].st_closed::before {
+	content: url('chevron-down.svg');
+	vertical-align: middle;
+	padding-right: 0.25em;
+}
+[class*="header__"].st_opened::before {
+	content: url('chevron-up.svg');
+	vertical-align: middle;
+	padding-right: 0.25em;
+}
