@@ -147,7 +147,7 @@ set_headers: function() {
            if(qstr)  qstr  += ',';
            qstr  += tagname;            
 	});
-           alert(qstr);
+           // alert(qstr);
            this.headers =  qstr;
           return;  
     }
