@@ -25,7 +25,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        
         $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns')));
         $id = implode("|",$this->normalize_names($this->getConf('xcl_pg')));
-        if(preg_match('/^' . $NS. '$/',getNS($ID)) || preg_match('/^' . $id. '$/',$ID)) {
+	    if(preg_match('/^' . $id. '$/',$ID)) {		
       	    $JSINFO['se_suspend']=1;          
 		   return;
         }
