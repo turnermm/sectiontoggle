@@ -52,7 +52,9 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
             switch ($state) {          
               case DOKU_LEXER_SPECIAL :    
                if($match == 'buttons') { 
-               $renderer->doc .= '<p class="sectoggle"><button onclick = "SectionToggle.open_all();" style="white-space:nowrap;" >open all</button>&nbsp;&nbsp;<button onclick = "SectionToggle.close_all();" style="white-space:nowrap;" >close all</button></p>';     // ptype = 'block'
+                $open = $this->getLang('open_all');
+                $close = $this->getLang('close_all');               
+                $renderer->doc .= '<p class="sectoggle"><button onclick = "SectionToggle.open_all();" style="white-space:nowrap;" >' . $open . '</button>&nbsp;&nbsp;<button onclick = "SectionToggle.close_all();" style="white-space:nowrap;" >' . $close .'</button></p>';     // ptype = 'block'
                 }
                 elseif($match == 'openDIV') {
                    $renderer->doc .= "\n<div id='section__toggle'>\n";                    
