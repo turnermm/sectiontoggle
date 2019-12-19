@@ -10,4 +10,4 @@ $lang['tablet_alt'] = 'Use the alternate template for tablets';
 $lang['tablet_toggle'] = 'Use toggles on tablets as well as phones';
 $lang['xcl_ns'] = 'Comma separated list of namespaces to be excluded from toggles, without initial or final colons(i.e. <code>&nbsp;name:space&nbsp;</code>,  not<code>&nbsp;:name:space:&nbsp;</code>) ';
 $lang['xcl_pg'] = 'Comma separated list of  page ids to be excluded from toggles (without initial colons (i.e <code>&nbsp;page:id &nbsp;</code>,  not<code>&nbsp;:page:id&nbsp;</code> )';
-
+$lang['incl_id'] = 'Comma separated list of page and namespace ids where toggles should appear, without initial or final colons. If this option is set, the <code>xcl_ns</code> and <code>xcl_pg</code> options will be ignored.'; 

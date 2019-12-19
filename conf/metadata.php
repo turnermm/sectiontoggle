@@ -10,3 +10,4 @@ $meta['tablet_alt'] = array('onoff');
 $meta['tablet_toggle'] = array('onoff');
 $meta['xcl_ns'] = array('string');
 $meta['xcl_pg'] = array('string');
+$meta['incl_id'] = array('string');
