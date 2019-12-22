@@ -22,14 +22,18 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $JSINFO;
         global $ACT;
         global $conf, $ID;
+        $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
+        $JSINFO['se_suspend']=0;
+        if(preg_match("/($NS)[^:]/",$ID)) {		
+      	    $JSINFO['se_suspend']=1;                           
+		    return;
+        }
        
-        $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns')));
         $id = implode("|",$this->normalize_names($this->getConf('xcl_pg')));
 	    if(preg_match('/^' . $id. '$/',$ID)) {		
       	    $JSINFO['se_suspend']=1;          
 		   return;
         }
-        else  $JSINFO['se_suspend']=0;
 
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
@@ -38,7 +42,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            $JSINFO['se_act'] = 'show';   
        }
        $p = $this->getConf('platform');
-       $JSINFO['se_platform'] = $p{0};
+       $JSINFO['se_platform'] = $p[0];
        $headers = $this->getConf('headers');
        $JSINFO['se_headers'] = $headers{1};       
        $xcl_headers = $this->getConf('xcl_headers');        
@@ -141,12 +145,14 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
       return false;		
 	}	
 
-    function normalize_names($str) {
+    function normalize_names($str,$ns = false) {
         $names = explode(',',$str);
         for ($i = 0; $i < count($names); $i++) {
             $names[$i] = preg_replace("/^\s?:\s?/", ":",$names[$i]);
             $names[$i] = trim ($names[$i]);
             if($names[$i] != ':') $names[$i] = trim ($names[$i],':');
+			if ($ns)$names[$i].= ":";
+			
          }
          return $names;
     }
