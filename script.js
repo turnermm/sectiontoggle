@@ -8,12 +8,9 @@ jQuery( document ).ready(function() {
          if (jQuery('p.sectoggle').length > 0){
           jQuery('p.sectoggle').hide();
        }
+        SectionToggle.is_active = false;
     }
     else {
-            if(JSINFO['se_suspend']) { 
-               SectionToggle.is_active = false;
-               return;
-            }
             if(JSINFO['se_device'])  {
                 SectionToggle.device_class =  JSINFO['se_device'];
             }
