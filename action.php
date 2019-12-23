@@ -22,6 +22,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $JSINFO;
         global $ACT;
         global $conf, $ID;
+                
         $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
         $JSINFO['se_suspend']=0;
         if(preg_match("/($NS)[^:]/",$ID)) {		
@@ -30,7 +31,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         }
        
         $id = implode("|",$this->normalize_names($this->getConf('xcl_pg')));
-	    if(preg_match('/^' . $id. '$/',$ID)) {		
+	    if($id && preg_match('/^' . $id. '$/',$ID)) {		
       	    $JSINFO['se_suspend']=1;          
 		   return;
         }
@@ -53,7 +54,6 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   $JSINFO['no_ini'] = 0;
        
       
-         
            $JSINFO['se_device'] = trim($this->device_type()) ;	
 		      if($p != 'all')
               {
@@ -145,15 +145,22 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
       return false;		
 	}	
 
-    function normalize_names($str,$ns = false) {
+function normalize_names($str,$ns = false) {
+    $ar = array();
+     $str = preg_replace("/\s+/", "",$str);
         $names = explode(',',$str);
         for ($i = 0; $i < count($names); $i++) {
             $names[$i] = preg_replace("/^\s?:\s?/", ":",$names[$i]);
             $names[$i] = trim ($names[$i]);
             if($names[$i] != ':') $names[$i] = trim ($names[$i],':');
-			if ($ns)$names[$i].= ":";
+        if ($ns && !empty($names[$i])) $names[$i].= ":";
 			
+        if($names[$i])
+        {   
+            $ar[] = $names[$i];
          }
-         return $names;
     }
+    return $ar;
+}
+
 }
