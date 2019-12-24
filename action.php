@@ -22,21 +22,20 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $JSINFO;
         global $ACT;
         global $conf, $ID;
-       
-		$pg_ns = implode("|",$this->normalize_names($this->getConf('incl_id'))); 
-		
-		if(!preg_match('/^' . $pg_ns. '$/',$ID)) {		
-      	    $JSINFO['se_suspend']=1;          
+                
+        $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
+        $JSINFO['se_suspend']=0;
+        if($NS && preg_match("/($NS)[^:]/",$ID)) {		
+      	    $JSINFO['se_suspend']=1;                           
 		    return;
         }
-        $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns')));
+       
         $id = implode("|",$this->normalize_names($this->getConf('xcl_pg')));
-	    if(preg_match('/^' . $id. '$/',$ID)) {		
+	    if($id && preg_match('/^' . $id. '$/',$ID)) {		
       	    $JSINFO['se_suspend']=1;          
 		   return;
         }
-        else  $JSINFO['se_suspend']=0;
-
+        
        $JSINFO['se_act'] = $ACT;   
        $JSINFO['se_template'] =  $conf['template'];    
        $JSINFO['se_actual_tpl'] =  $conf['template'];	   
@@ -44,7 +43,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            $JSINFO['se_act'] = 'show';   
        }
        $p = $this->getConf('platform');
-       $JSINFO['se_platform'] = $p{0};
+       $JSINFO['se_platform'] = $p[0];
        $headers = $this->getConf('headers');
        $JSINFO['se_headers'] = $headers{1};       
        $xcl_headers = $this->getConf('xcl_headers');        
@@ -55,7 +54,6 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   $JSINFO['no_ini'] = 0;
        
       
-         
            $JSINFO['se_device'] = trim($this->device_type()) ;	
 		      if($p != 'all')
               {
@@ -147,13 +145,22 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
       return false;		
 	}	
 
-    function normalize_names($str) {
+function normalize_names($str,$ns = false) {
+    $ar = array();
+     $str = preg_replace("/\s+/", "",$str);
         $names = explode(',',$str);
         for ($i = 0; $i < count($names); $i++) {
             $names[$i] = preg_replace("/^\s?:\s?/", ":",$names[$i]);
             $names[$i] = trim ($names[$i]);
             if($names[$i] != ':') $names[$i] = trim ($names[$i],':');
+        if ($ns && !empty($names[$i])) $names[$i].= ":";
+			
+        if($names[$i])
+        {   
+            $ar[] = $names[$i];
          }
-         return $names;
     }
+    return $ar;
+}
+
 }
