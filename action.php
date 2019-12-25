@@ -22,7 +22,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $JSINFO;
         global $ACT;
         global $conf, $ID;
-                
+
         $JSINFO['se_suspend']=0;   
         $NS_inc = implode("|",$this->normalize_names($this->getConf('incl_ns'),true));      
         if($NS_inc && !preg_match("/($NS_inc)[^:]/",$ID)) {		         
