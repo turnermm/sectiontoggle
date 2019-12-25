@@ -11,4 +11,4 @@ $lang['tablet_toggle'] = 'Use toggles on tablets as well as phones';
 $lang['xcl_ns'] = 'Comma separated list of namespaces to be excluded from toggles, without initial or final colons(i.e. <code>&nbsp;name:space&nbsp;</code>,  not<code>&nbsp;:name:space:&nbsp;</code>) ';
 $lang['xcl_pg'] = 'Comma separated list of  page ids to be excluded from toggles (without initial colons (i.e <code>&nbsp;page:id &nbsp;</code>,  not<code>&nbsp;:page:id&nbsp;</code> )';
 $lang['incl_pg'] = 'Comma separated list of page ids where toggles should appear (without initial colons). Takes precedence over page and namespace exclusions.'; 
-$lang['incl_ns'] = 'Comma separated list of namespace ids where toggles should appear (without initial or final colons).  Takes precedence over page and namespace exclusions. ; 
+$lang['incl_ns'] = 'Comma separated list of namespace ids where toggles should appear (without initial or final colons).  Takes precedence over page and namespace exclusions.' ; 

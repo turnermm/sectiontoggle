@@ -23,6 +23,14 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $ACT;
         global $conf, $ID;
                 
+        $JSINFO['se_suspend']=0;   
+        $NS_inc = implode("|",$this->normalize_names($this->getConf('incl_ns'),true));
+        if($NS_inc && !preg_match("/($NS_inc)[^:]/",$ID)) {		
+     //   msg($NS_inc . " " . $ID);
+         $JSINFO['se_suspend']=1;                           
+		  return;
+        }
+       
         $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
         $JSINFO['se_suspend']=0;
         if($NS && preg_match("/($NS)[^:]/",$ID)) {		
