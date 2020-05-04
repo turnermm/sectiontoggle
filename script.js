@@ -26,6 +26,10 @@ jQuery( document ).ready(function() {
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
+		       var skip = false;
+		       if(jQuery(elem).html().toLowerCase() == SectionToggle.hash) {
+                   skip = true;
+               }
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);
@@ -34,11 +38,15 @@ jQuery( document ).ready(function() {
                 this.onmouseover = elem.style.cursor='pointer';
                 var $class = 'st_closed header__' + index;
                 jQuery(this).addClass($class);         
-                
+                 if(skip)  {
+                      jQuery(elem).removeClass('st_closed').addClass('st_opened');
+                }   
+               
                 /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
                      //jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
+                     if(skip)  jQuery(elem).next().toggle();
                }
               }
 
@@ -81,7 +89,15 @@ check_status: function() {
     else if(JSINFO.se_platform == 'm' && this.device_class.match(/mobile/)) {
         this.is_active = true; 
     }       
-    if(this.is_active) this.set_headers();
+    
+    if(this.is_active) {
+        if (window.location.hash) {
+          SectionToggle.hash = window.location.hash.toLowerCase(); 
+          SectionToggle.hash = SectionToggle.hash.replace(/#/,"");
+          alert(SectionToggle.hash);
+        }                           
+        this.set_headers();
+    }
 },
 
 set_headers: function() {
@@ -162,6 +178,7 @@ set_headers: function() {
 headers: "",
 device_class: 'desktop',
 is_active: false,
+hash: "",
 };
 function icke_OnMobileFix() {
 	if(JSINFO['se_platform'] != 'm' && JSINFO['se_platform'] != 'a') return; 
