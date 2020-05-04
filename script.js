@@ -27,7 +27,8 @@ jQuery( document ).ready(function() {
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
 		       var skip = false;
-		       if(jQuery(elem).html().toLowerCase() == SectionToggle.hash) {
+               var hash = jQuery(elem).html().replace(/\s/g, "_");               
+		       if(hash.toLowerCase() == SectionToggle.hash) {
                    skip = true;
                }
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
@@ -44,7 +45,6 @@ jQuery( document ).ready(function() {
                
                 /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
-                     //jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
                      if(skip)  jQuery(elem).next().toggle();
                }
@@ -91,10 +91,11 @@ check_status: function() {
     }       
     
     if(this.is_active) {
+         /*normalize url hash */
         if (window.location.hash) {
           SectionToggle.hash = window.location.hash.toLowerCase(); 
           SectionToggle.hash = SectionToggle.hash.replace(/#/,"");
-          alert(SectionToggle.hash);
+          SectionToggle.hash = SectionToggle.hash.replace(/\s/g, "_");      
         }                           
         this.set_headers();
     }
@@ -108,7 +109,6 @@ set_headers: function() {
         xcl = JSINFO['se_xcl_headers'].split(',');
         for(var i =0; i<xcl.length; i++) {
            xclheaders[xcl[i]] = 1;
-		   
         }
     }
     

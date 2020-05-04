@@ -59,7 +59,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $p = $this->getConf('platform');
        $JSINFO['se_platform'] = $p[0];
        $headers = $this->getConf('headers');
-       $JSINFO['se_headers'] = $headers{1};       
+       $JSINFO['se_headers'] = $headers[1];       
        $xcl_headers = $this->getConf('xcl_headers');        
        $xcl_headers = str_replace('h',"",$xcl_headers);       
        $JSINFO['se_xcl_headers'] = $xcl_headers;       
