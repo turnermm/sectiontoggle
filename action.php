@@ -146,6 +146,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            }   
 		   
 		   if(isset($stored_templates[$conf['template']])) {
+              // $JSINFO['se_tplname'] = $conf['template'];
 			   $type = trim($stored_templates[$conf['template']]['type']);
 			   $name = trim($stored_templates[$conf['template']]['name']);
 			   if(!$type || !$name) return false; 

@@ -1,6 +1,7 @@
 
 jQuery( document ).ready(function() {
-jQuery("ul.toc li div.li a").click(function(){
+
+jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
       text =  text.replace(/\s/g, "_");  
@@ -36,9 +37,16 @@ jQuery("ul.toc li div.li a").click(function(){
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
 		       var skip = false;
                var hash = jQuery(elem).html().replace(/\s/g, "_");               
+               // alert(hash + " //" + SectionToggle.hash);               
 		       if(hash.toLowerCase() == SectionToggle.hash) {
                    skip = true;
                }
+			   else if(SectionToggle.hash){				   
+                  const regex = RegExp('^' +SectionToggle.hash,'i');  //bootstrap3
+				  if(regex.test(hash)) {
+					 skip = true;					 
+				  }
+		       }
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);
