@@ -35,18 +35,22 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
+			 
 		       var skip = false;
+			  var regex;
                var hash = jQuery(elem).html().replace(/\s/g, "_");               
-               // alert(hash + " //" + SectionToggle.hash);               
-		       if(hash.toLowerCase() == SectionToggle.hash) {
+               // alert(hash + " / STH= /" + SectionToggle.hash);  
+               regex = RegExp('\\b' + hash.toLowerCase() + '\\b'); 			   
+		       if(hash.toLowerCase() == SectionToggle.hash || regex.test(JSINFO['h_ini_open'])) {
                    skip = true;
                }
 			   else if(SectionToggle.hash){				   
-                  const regex = RegExp('^' +SectionToggle.hash,'i');  //bootstrap3
+                  regex = RegExp('^' +SectionToggle.hash,'i');  //bootstrap3
 				  if(regex.test(hash)) {
 					 skip = true;					 
 				  }
 		       }
+	
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);
