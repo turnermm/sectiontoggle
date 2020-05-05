@@ -1,5 +1,13 @@
 
 jQuery( document ).ready(function() {
+jQuery("ul.toc li div.li a").click(function(){
+      var text = jQuery(this).html();	
+      text = text.toLowerCase();
+      text =  text.replace(/\s/g, "_");  
+      var id = '#' + text; 
+       jQuery(id).toggleClass('st_closed st_opened');
+       jQuery(id).next().toggle()
+}); 
 
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
