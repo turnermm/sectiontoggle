@@ -12,3 +12,5 @@ $lang['xcl_ns'] = 'Comma separated list of namespaces to be excluded from toggle
 $lang['xcl_pg'] = 'Comma separated list of  page ids to be excluded from toggles (without initial colons (i.e <code>&nbsp;page:id &nbsp;</code>,  not<code>&nbsp;:page:id&nbsp;</code> )';
 $lang['incl_pg'] = 'Comma separated list of page ids where toggles should appear (without initial colons). Takes precedence over page and namespace exclusions.'; 
 $lang['incl_ns'] = 'Comma separated list of namespace ids where toggles should appear (without initial or final colons).  Takes precedence over page and namespace exclusions and <code>xcl_pg</code>.' ; 
+$lang['h_ini_open'] = 'List of header texts, separated by double semi-colons, where toggles should stay open when the page loads, i.e. ' .
+     '<br /><code><b>header-text;;header-text;;. . .</b></code>';
