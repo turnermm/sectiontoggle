@@ -1,6 +1,15 @@
 
 jQuery( document ).ready(function() {
 
+jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
+      var text = jQuery(this).html();	
+      text = text.toLowerCase();
+      text =  text.replace(/\s/g, "_");  
+      var id = '#' + text; 
+       jQuery(id).toggleClass('st_closed st_opened');
+       jQuery(id).next().toggle()
+}); 
+
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
@@ -26,6 +35,22 @@ jQuery( document ).ready(function() {
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
+			 
+		       var skip = false;
+			  var regex;
+               var hash = jQuery(elem).html().replace(/\s/g, "_");               
+               // alert(hash + " / STH= /" + SectionToggle.hash);  
+               regex = RegExp('\\b' + hash.toLowerCase() + '\\b'); 			   
+		       if(hash.toLowerCase() == SectionToggle.hash || regex.test(JSINFO['h_ini_open'])) {
+                   skip = true;
+               }
+			   else if(SectionToggle.hash){				   
+                  regex = RegExp('^' +SectionToggle.hash,'i');  //bootstrap3
+				  if(regex.test(hash)) {
+					 skip = true;					 
+				  }
+		       }
+	
                if(SectionToggle.is_active && jQuery(elem).next().html().match(/\w/))  {
                    this.onclick=function() {
                    SectionToggle.checkheader(elem,index);
@@ -34,11 +59,14 @@ jQuery( document ).ready(function() {
                 this.onmouseover = elem.style.cursor='pointer';
                 var $class = 'st_closed header__' + index;
                 jQuery(this).addClass($class);         
-                
+                 if(skip)  {
+                      jQuery(elem).removeClass('st_closed').addClass('st_opened');
+                }   
+               
                 /* add toggle icon and  hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
-                     //jQuery(this).append('&nbsp;&nbsp; <img border= "0" src="' + im + '">'); 
                      jQuery(elem).next().toggle();
+                     if(skip)  jQuery(elem).next().toggle();
                }
               }
 
@@ -81,7 +109,16 @@ check_status: function() {
     else if(JSINFO.se_platform == 'm' && this.device_class.match(/mobile/)) {
         this.is_active = true; 
     }       
-    if(this.is_active) this.set_headers();
+    
+    if(this.is_active) {
+         /*normalize url hash */
+        if (window.location.hash) {
+          SectionToggle.hash = window.location.hash.toLowerCase(); 
+          SectionToggle.hash = SectionToggle.hash.replace(/#/,"");
+          SectionToggle.hash = SectionToggle.hash.replace(/\s/g, "_");      
+        }                           
+        this.set_headers();
+    }
 },
 
 set_headers: function() {
@@ -92,7 +129,6 @@ set_headers: function() {
         xcl = JSINFO['se_xcl_headers'].split(',');
         for(var i =0; i<xcl.length; i++) {
            xclheaders[xcl[i]] = 1;
-		   
         }
     }
     
@@ -162,6 +198,7 @@ set_headers: function() {
 headers: "",
 device_class: 'desktop',
 is_active: false,
+hash: "",
 };
 function icke_OnMobileFix() {
 	if(JSINFO['se_platform'] != 'm' && JSINFO['se_platform'] != 'a') return; 

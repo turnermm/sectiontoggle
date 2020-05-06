@@ -10,6 +10,8 @@ $conf['tablet_alt'] = 0;
 $conf['tablet_toggle'] = 1;
 $conf['xcl_ns'] = '';
 $conf['xcl_pg'] = '';
-$confi['incl_ns'] = "";
-$confi['incl_pg'] = "";
+$conf['incl_ns'] = "";
+$conf['incl_pg'] = "";
+$conf['h_ini_open'] = "";
+
 

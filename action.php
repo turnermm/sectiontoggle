@@ -59,11 +59,14 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $p = $this->getConf('platform');
        $JSINFO['se_platform'] = $p[0];
        $headers = $this->getConf('headers');
-       $JSINFO['se_headers'] = $headers{1};       
+       $JSINFO['se_headers'] = $headers[1];       
        $xcl_headers = $this->getConf('xcl_headers');        
        $xcl_headers = str_replace('h',"",$xcl_headers);       
        $JSINFO['se_xcl_headers'] = $xcl_headers;       
        $JSINFO['se_type'] = $this->getConf('type');
+	   $JSINFO['h_ini_open'] = strtolower($this->getConf('h_ini_open'));
+	   $JSINFO['h_ini_open'] = preg_replace('/\s/','_',$JSINFO['h_ini_open']);
+	  // msg($JSINFO['h_ini_open']);
        $alt_mobile = $this->getConf('mobile_alt');
 	   $JSINFO['no_ini'] = 0;
        
@@ -146,6 +149,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
            }   
 		   
 		   if(isset($stored_templates[$conf['template']])) {
+              // $JSINFO['se_tplname'] = $conf['template'];
 			   $type = trim($stored_templates[$conf['template']]['type']);
 			   $name = trim($stored_templates[$conf['template']]['name']);
 			   if(!$type || !$name) return false; 
