@@ -1,6 +1,8 @@
 
 jQuery( document ).ready(function() {
-
+var escapeRegExp = function(expr) {   
+  return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
+}
 jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
@@ -37,10 +39,10 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
 			 
 		       var skip = false;
-			  var regex;
+			   var regex;
                var hash = jQuery(elem).html().replace(/\s/g, "_");               
-               // alert(hash + " / STH= /" + SectionToggle.hash);  
-               regex = RegExp('\\b' + hash.toLowerCase() + '\\b'); 			   
+               regex = RegExp('\\b' + escapeRegExp(hash.toLowerCase()) + '\\b');                
+			   
 		       if(hash.toLowerCase() == SectionToggle.hash || regex.test(JSINFO['h_ini_open'])) {
                    skip = true;
                }
