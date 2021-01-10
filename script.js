@@ -1,8 +1,9 @@
 
 jQuery( document ).ready(function() {
-var escapeRegExp = function(expr) {   
+function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
+
 jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
@@ -40,8 +41,8 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
 			 
 		       var skip = false;
 			   var regex;
-               var hash = jQuery(elem).html().replace(/\s/g, "_");               
-               regex = RegExp('\\b' + escapeRegExp(hash.toLowerCase()) + '\\b');                
+               var hash = jQuery(elem).html().replace(/\s/g, "_"); 
+               regex = RegExp('\\b' + escapeRegExp(hash.toLowerCase()) + '\\b');  
 			   
 		       if(hash.toLowerCase() == SectionToggle.hash || regex.test(JSINFO['h_ini_open'])) {
                    skip = true;
