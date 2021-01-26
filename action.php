@@ -74,15 +74,16 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 		      if($p != 'all')
               {
                   if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer' || $JSINFO['se_device'] == 'tablet') return;                   
-              }  
-        if($conf['template'] != 'dokuwiki') {
+              } 
+         
+      
            if($JSINFO['se_device'] == 'phone') {
                $JSINFO['se_device'] = 'mobile';
                if(empty($alt_mobile)) { 
-                   $alt_mobile =  $JSINFO['se_template'];                  
+                   $alt_mobile =  $JSINFO['se_template']; 
                }
                else {
-                $alt_mobile  = $this->getConf('mobile_alt');                 
+                $alt_mobile  = $this->getConf('mobile_alt');
                 $alt_template_dir = tpl_incdir($alt_mobile);                      
                 if(file_exists($alt_template_dir)) {
                     $conf['template'] = $alt_mobile;                    
@@ -90,11 +91,11 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                 }  
                }
            }
-       }
+       
        else {
           $JSINFO['se_device'] = "";
        }
-	   
+
        $JSINFO['se_suspend'] = $this->getConf('suspend');
 	   if($conf['template'] != 'dokuwiki' && $JSINFO['se_type'] == 'none') { //	in template.ini?	  
 	       if($this->check_ini()) return; // if true template configured in template.ini
