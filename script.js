@@ -26,7 +26,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
             if(JSINFO['se_device'])  {
                 SectionToggle.device_class =  JSINFO['se_device'];
             }
-            else SectionToggle.device_class = device_class;
+   
 
             SectionToggle.check_status();
 
