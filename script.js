@@ -38,12 +38,19 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
           
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
+               var classes = elem.getAttribute('class');  
+               if(!classes.match(/sectionedit/)) return;    
+               
 			 
 		       var skip = false;
 			   var regex;
                var hash = jQuery(elem).html().replace(/\s/g, "_"); 
                regex = RegExp('\\b' + escapeRegExp(hash.toLowerCase()) + '\\b');  
-			   
+			   /*
+               Checking for the hash: if a url is directed to a page#section, the section will 
+               remain open instead of being toggled closed.  This enables also opening of
+               section when a TOC link is clicked                
+               */
 		       if(hash.toLowerCase() == SectionToggle.hash || regex.test(JSINFO['h_ini_open'])) {
                    skip = true;
                }
@@ -74,8 +81,20 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
               }
 
         });
+        
+       jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
+       var tag = jQuery(elem).prop("tagName");
+       if(matches = tag.match(/H(\d)/)) {
+           var level = matches[1];
+       }    
+       alert(level + '=' +elem.innerHTML);
+             //alert(jQuery(elem).prop("tagName").toLowerCase());
+         }
+        );     
+        
     }
 });
+
 var SectionToggle = {
 checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
