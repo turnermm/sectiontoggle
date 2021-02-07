@@ -92,14 +92,14 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
            level = matches[1];
        }    
        
-       if(prev_level && level >= prev_level) {
+       if(prev_level && level > prev_level  || prev_level && level == prev_level) {
           jQuery(this).hide();
        }
        if(prev_level == level) {
            prev_level = 0;
        }
        if(!prev_level) prev_level = level;
-       alert(tag +"//prev= "+ prev_level+"//level= "+level + '=' +elem.innerHTML); 
+    //   alert(tag +"//prev= "+ prev_level+"//level= "+level + '=' +elem.innerHTML); 
       
            
          
