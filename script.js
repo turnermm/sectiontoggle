@@ -73,7 +73,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
                       jQuery(elem).removeClass('st_closed').addClass('st_opened');
                 }   
                
-                /* add toggle icon and  hide data below this header */
+                /* hide data below this header */
                 if(!this.getAttribute('class').match(/toggle/)) {
                      jQuery(elem).next().toggle();
                      if(skip)  jQuery(elem).next().toggle();
@@ -81,30 +81,39 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
               }
 
         });
+     
+  
+   
        var prev_level = 0; 
-       var header_levels = new Array();
+     
        jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
        var tag = jQuery(this).prop("tagName");
-       if(matches = tag.match(/H(\d)/)) {
+       if(matches = tag.match(/H(\d)/i)) {
            level = matches[1];
        }    
-       if(prev_level && level > prev_level) {
+       
+       if(prev_level && level >= prev_level) {
           jQuery(this).hide();
        }
-       prev_level = level;
-          alert(tag + "//"+level + '=' +elem.innerHTML);
-             //alert(jQuery(elem).prop("tagName").toLowerCase());
+       if(prev_level == level) {
+           prev_level = 0;
+       }
+       if(!prev_level) prev_level = level;
+       alert(tag +"//prev= "+ prev_level+"//level= "+level + '=' +elem.innerHTML); 
+      
+           
+         
          }
+
         );     
-        
     }
 });
 
 var SectionToggle = {
 checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
+    alert("classes= "+classes);
   if(!classes.match(/(header__\d+)/)) return;
-  
     jQuery(el).toggleClass('st_closed st_opened');
     jQuery(el).next().toggle();
   
