@@ -81,13 +81,18 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
               }
 
         });
-        
+       var prev_level = 0; 
+       var header_levels = new Array();
        jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
-       var tag = jQuery(elem).prop("tagName");
+       var tag = jQuery(this).prop("tagName");
        if(matches = tag.match(/H(\d)/)) {
-           var level = matches[1];
+           level = matches[1];
        }    
-       alert(level + '=' +elem.innerHTML);
+       if(prev_level && level > prev_level) {
+          jQuery(this).hide();
+       }
+       prev_level = level;
+          alert(tag + "//"+level + '=' +elem.innerHTML);
              //alert(jQuery(elem).prop("tagName").toLowerCase());
          }
         );     
