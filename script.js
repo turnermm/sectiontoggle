@@ -97,9 +97,8 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
            prev_level = 0;
        }
        if(!prev_level) prev_level = level;
-         }
-        );     
-    }
+     });     
+   }  // else. . .
 });
 
 var SectionToggle = {
