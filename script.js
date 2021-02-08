@@ -83,28 +83,21 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
         });
      
   
-   
        var prev_level = 0; 
-     
        jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
        var tag = jQuery(this).prop("tagName");
        if(matches = tag.match(/H(\d)/i)) {
            level = matches[1];
        }    
        
-       if(prev_level && level > prev_level ) { // || prev_level && level == prev_level) {
+       if(prev_level && level > prev_level ) { 
           jQuery(this).hide();
        }
        if(prev_level == level) {
            prev_level = 0;
        }
        if(!prev_level) prev_level = level;
-    //   alert(tag +"//prev= "+ prev_level+"//level= "+level + '=' +elem.innerHTML); 
-      
-           
-         
          }
-
         );     
     }
 });
