@@ -99,7 +99,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
        if(prev_level && level > prev_level ) { 
               jQuery(this).addClass(group_class);
           jQuery(this).hide();
-              var classes = elem.getAttribute('class');                 
+             // var classes = elem.getAttribute('class');                 
        }
        if(prev_level == level) {
            prev_level = 0;
@@ -114,12 +114,22 @@ var SectionToggle = {
 checkheader : function (el,index) {
     var group_class = ':header.' + jQuery(el).attr('id');   
    var classes = el.getAttribute('class');  
+   
   if(!classes.match(/(header__\d+)/)) return;
     jQuery(el).toggleClass('st_closed st_opened');
     jQuery(el).next().toggle();
    
     jQuery(group_class).each(function(index,elem) {
-        //alert(elem.getAttribute('class'));  
+        var classes = elem.getAttribute('class');
+        if(classes.match(/st_closed/)) {
+          //  jQuery(this).show();
+        }
+        jQuery(elem).toggleClass('st_closed st_opened');
+        jQuery(elem).toggle();
+        jQuery(elem).next().toggle();
+      
+        //jQuery(elem).toggleClass('st_closed st_opened'); 
+        
     });
   
 },
