@@ -84,14 +84,22 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
      
   
        var prev_level = 0; 
+       var group_start = 0;
+       var group_class;       
        jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
        var tag = jQuery(this).prop("tagName");
        if(matches = tag.match(/H(\d)/i)) {
            level = matches[1];
+           if(!group_start) group_start = level;
+           if(level <= group_start) {
+               group_class = this.getAttribute('id');  
+           }
        }    
        
        if(prev_level && level > prev_level ) { 
+              jQuery(this).addClass(group_class);
           jQuery(this).hide();
+              var classes = elem.getAttribute('class');                 
        }
        if(prev_level == level) {
            prev_level = 0;
@@ -99,15 +107,20 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
        if(!prev_level) prev_level = level;
      });     
    }  // else. . .
+
 });
 
 var SectionToggle = {
 checkheader : function (el,index) {
+    var group_class = ':header.' + jQuery(el).attr('id');   
    var classes = el.getAttribute('class');  
-    alert("classes= "+classes);
   if(!classes.match(/(header__\d+)/)) return;
     jQuery(el).toggleClass('st_closed st_opened');
     jQuery(el).next().toggle();
+   
+    jQuery(group_class).each(function(index,elem) {
+        //alert(elem.getAttribute('class'));  
+    });
   
 },
 
