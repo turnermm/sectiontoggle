@@ -9,8 +9,8 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       text = text.toLowerCase();
       text =  text.replace(/\s/g, "_");  
       var id = '#' + text; 
-       //jQuery(id).toggleClass('st_closed st_opened');
-      // jQuery(id).next().toggle()
+       jQuery(id).toggleClass('st_closed st_opened');
+       jQuery(id).next().toggle()
 }); 
 
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
@@ -122,10 +122,6 @@ checkheader : function (el,index) {
     jQuery(group_class).each(function(index,elem) {
         jQuery(elem).toggleClass('st_closed st_opened');
         jQuery(elem).toggle();
-        jQuery(elem).next().toggle();        
-        jQuery(elem).removeClass('st_closed st_opened');
-        jQuery(this).attr('onclick', '');
-        
     });
   
 },
