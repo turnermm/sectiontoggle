@@ -68,7 +68,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   $JSINFO['h_ini_open'] = preg_replace('/\s+/','_',$JSINFO['h_ini_open']);	
        $alt_mobile = $this->getConf('mobile_alt');
 	   $JSINFO['no_ini'] = 0;
-       
+       $JSINFO['subheaders'] = $this->getConf('subheaders');  
       
            $JSINFO['se_device'] = trim($this->device_type()) ;	
 		      if($p != 'all')

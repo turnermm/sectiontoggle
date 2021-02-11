@@ -13,5 +13,6 @@ $meta['xcl_pg'] = array('string');
 $meta['incl_ns'] = array('string');
 $meta['incl_pg'] = array('string');
 $meta['h_ini_open'] = array('string');
+$meta['subheaders'] = array('onoff');
 
 

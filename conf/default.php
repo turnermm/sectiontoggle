@@ -13,5 +13,6 @@ $conf['xcl_pg'] = '';
 $conf['incl_ns'] = "";
 $conf['incl_pg'] = "";
 $conf['h_ini_open'] = "";
+$conf['subheaders'] = 1;
 
 

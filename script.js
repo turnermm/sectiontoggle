@@ -3,7 +3,7 @@ jQuery( document ).ready(function() {
 function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
-
+if(JSINFO.subheaders) {
 jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
@@ -12,7 +12,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
        jQuery(id).toggleClass('st_closed st_opened');
        jQuery(id).next().toggle()
 }); 
-
+}
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
@@ -39,7 +39,8 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
                var classes = elem.getAttribute('class');  
-               if(!classes.match(/sectionedit/)) return;    
+                 
+               if(classes && !classes.match(/sectionedit/)) return;    
                
 			 
 		       var skip = false;
@@ -82,7 +83,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
 
         });
      
-  
+       if(JSINFO.subheaders) {
        var prev_level = 0; 
        var group_start = 0;
        var group_class;       
@@ -106,6 +107,8 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
        }
        if(!prev_level) prev_level = level;
      });     
+     }     
+    
    }  // else. . .
 
 });
