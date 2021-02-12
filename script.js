@@ -83,11 +83,17 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
 
         });
      
+       /* create collapsible headers */
        if(JSINFO.subheaders) {
        var prev_level = 0; 
        var group_start = 0;
        var group_class;       
-       jQuery(SectionToggle.headers).filter(".st_closed").each(function(index,elem ) { 
+           var classes; 
+           var stop = false;  
+           var start = false;        
+           jQuery(SectionToggle.headers).filter(".st_closed,.stoggle_stop,.stoggle_start").each(function(index,elem ) { 
+           
+           var classes = elem.getAttribute('class'); 
        var tag = jQuery(this).prop("tagName");
        if(matches = tag.match(/H(\d)/i)) {
            level = matches[1];
@@ -95,12 +101,35 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
            if(level <= group_start) {
                group_class = this.getAttribute('id');  
            }
+
+               if(classes.match(/stoggle_stop/)) {
+                   stop = true;
+                   start = false;
+               }
+               else if(classes.match(/stoggle_start/)) {  //stoggle_start
+               
+                   stop = false;
+                   start = true;
+                   alert('start');
+               }
+             
+           }
+           
+           if(stop) {	
+               jQuery(elem).removeClass('st_closed').addClass('st_opened');
+               jQuery(elem).next().show();               
+               return;
+           }
+           else if(start) {
+               alert('start');
+               jQuery(elem).removeClass('st_opened').addClass('st_closed');
+               jQuery(elem).next().hide();
+              return;
        }    
        
        if(prev_level && level > prev_level ) { 
               jQuery(this).addClass(group_class);
           jQuery(this).hide();
-             // var classes = elem.getAttribute('class');                 
        }
        if(prev_level == level) {
            prev_level = 0;

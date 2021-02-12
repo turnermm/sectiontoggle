@@ -33,6 +33,9 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
       $this->Lexer->addSpecialPattern('~~stoggle_buttons~~',$mode,'plugin_sectiontoggle');
      $this->Lexer->addSpecialPattern('~~stoggle_openDIV~~',$mode,'plugin_sectiontoggle');
      $this->Lexer->addSpecialPattern('~~stoggle_closeDIV~~',$mode,'plugin_sectiontoggle');
+         /* start and stop collapsible headers */
+         $this->Lexer->addSpecialPattern('~~stoggle_START~~',$mode,'plugin_sectiontoggle'); 
+         $this->Lexer->addSpecialPattern('~~stoggle_STOP~~',$mode,'plugin_sectiontoggle');
     }
 
 
@@ -49,6 +52,7 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
     function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
            list($state,$match) = $data;
+           
             switch ($state) {          
               case DOKU_LEXER_SPECIAL :    
                if($match == 'buttons') { 
@@ -62,6 +66,12 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
                 elseif($match == 'closeDIV') {
                    $renderer->doc .= "\n</div>\n";                    
                 }                                
+               elseif($match == 'STOP') {                 
+                   $renderer->doc .= "\n<h3 class='stoggle_stop' style='display:none'>nop</h3>\n";                    
+                }       
+               elseif($match == 'START') {                  
+                   $renderer->doc .= "\n<h3 class='stoggle_start' style='display:none'>nop</h3>\n";                    
+                }                    
                return true;
             }
         }
