@@ -36,6 +36,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
              $JSINFO['se_suspend']=1;                           
 		     return;
         }
+       $JSINFO['toc_suspend'] = strpos($id_inc, $ID);
        
         $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
         $JSINFO['se_suspend']=0;
