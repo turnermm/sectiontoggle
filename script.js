@@ -4,7 +4,7 @@ function escapeRegExp (expr) {
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
 
-if(JSINFO['toc_suspend']) {
+if(!JSINFO['toc_suspend']) {
 jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
