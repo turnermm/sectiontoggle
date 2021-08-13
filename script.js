@@ -3,7 +3,7 @@ jQuery( document ).ready(function() {
 function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
-
+if(!JSINFO['toc_xcl']) {
 jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
@@ -12,7 +12,7 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
        jQuery(id).toggleClass('st_closed st_opened');
        jQuery(id).next().toggle()
 }); 
-
+}
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
