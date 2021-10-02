@@ -14,3 +14,5 @@ $lang['incl_pg'] = 'Comma separated list of page ids where toggles should appear
 $lang['incl_ns'] = 'Comma separated list of namespace ids where toggles should appear (without initial or final colons).  Takes precedence over page and namespace exclusions and <code>xcl_pg</code>.' ; 
 $lang['h_ini_open'] = 'List of header texts, separated by double semi-colons, where toggles should stay open when the page loads, i.e. ' .
      '<br /><code><b>header-text;;header-text;;. . .</b></code>';
+$lang['toc_toggle'] = 'Prevent TOC from toggling headers';
+ 

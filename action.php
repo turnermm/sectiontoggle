@@ -30,7 +30,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 		  return;
         }
               
-  
+         $JSINFO['toc_xcl'] =  $this->getConf('toc_toggle');          
       $id_inc = implode("|",$this->normalize_names($this->getConf('incl_pg')));
           $JSINFO['toc_xcl'] = 0;    /* Determines whether or not to apply jQuery toc code to current page*/
           if($id_inc && !preg_match('/^(' .$id_inc. ')$/',$ID)) {		

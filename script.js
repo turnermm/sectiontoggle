@@ -3,16 +3,7 @@ jQuery( document ).ready(function() {
 function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
-if(!JSINFO['toc_xcl']) {
-jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
-      var text = jQuery(this).html();	
-      text = text.toLowerCase();
-      text =  text.replace(/\s/g, "_");  
-      var id = '#' + text; 
-       jQuery(id).toggleClass('st_closed st_opened');
-       jQuery(id).next().toggle()
-}); 
-}
+
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
@@ -76,6 +67,20 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
         });
     }
 });
+
+
+if(!JSINFO['toc_xcl']) {
+jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
+      var text = jQuery(this).html();      
+      text = text.toLowerCase();
+      text =  text.replace(/\s/g, "_");  
+      var id = '#' + text;       
+       jQuery(id).toggleClass('st_closed st_opened');
+       jQuery(id).next().toggle()
+}); 
+}
+
+
 var SectionToggle = {
 checkheader : function (el,index) {
    var classes = el.getAttribute('class');  
@@ -127,11 +132,10 @@ check_status: function() {
 set_headers: function() {
     var nheaders = parseInt(JSINFO['se_headers'])+1; 
 
-    var xclheaders=new Array(0,0,0,0,0,0,0);    
     if(JSINFO['se_xcl_headers']) {
         xcl = JSINFO['se_xcl_headers'].split(',');
         for(var i =0; i<xcl.length; i++) {
-           xclheaders[xcl[i]] = 1;
+           this.xclheaders[xcl[i]] = 1;
         }
     }
     
@@ -166,7 +170,7 @@ set_headers: function() {
         var $id, $class =  jQuery(this).attr('class'); 
 		var tagname = jQuery(this).prop("tagName").toLowerCase();
 		   matches = tagname.match(/h(\d)/);
-		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
+		   if(matches[1] > JSINFO['se_headers'] || this.xclheaders[matches[1]]) return;		   
              
 		  
            if($class) {
@@ -189,7 +193,7 @@ set_headers: function() {
     }
 
     for (var i = 1; i < nheaders; i++) {
-        if(xclheaders[i]) continue;
+        if(this.xclheaders[i]) continue;
 	    id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
@@ -199,6 +203,7 @@ set_headers: function() {
 },
 
 headers: "",
+xclheaders: new Array(0,0,0,0,0,0,0),
 device_class: 'desktop',
 is_active: false,
 hash: "",
