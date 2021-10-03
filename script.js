@@ -3,16 +3,7 @@ jQuery( document ).ready(function() {
 function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
-if(!JSINFO['toc_xcl']) {
-jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
-      var text = jQuery(this).html();	
-      text = text.toLowerCase();
-      text =  text.replace(/\s/g, "_");  
-      var id = '#' + text; 
-       jQuery(id).toggleClass('st_closed st_opened');
-       jQuery(id).next().toggle()
-}); 
-}
+
  if(JSINFO['se_actual_tpl'] == 'icke-template'  && !JSINFO['se_suspend']) {	   
      icke_OnMobileFix();
   }
@@ -36,6 +27,16 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
                    }                  
             }
           
+if(SectionToggle.is_active && !JSINFO['toc_xcl']) {
+jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
+      var text = jQuery(this).html();	
+      text = text.toLowerCase();
+      text =  text.replace(/\s/g, "_");  
+      var id = '#' + text; 
+       jQuery(id).toggleClass('st_closed st_opened');
+       jQuery(id).next().toggle()
+}); 
+}          
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
                if( typeof(jQuery(elem).next().html())  === 'undefined') return; 
 			 
