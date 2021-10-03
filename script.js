@@ -32,9 +32,10 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
       var text = jQuery(this).html();	
       text = text.toLowerCase();
       text =  text.replace(/\s/g, "_");  
+      if(SectionToggle.toc_xcl.indexOf(text) > -1) return;
       var id = '#' + text; 
-       jQuery(id).toggleClass('st_closed st_opened');
-       jQuery(id).next().toggle()
+      jQuery(id).toggleClass('st_closed st_opened');
+      jQuery(id).next().toggle()
 }); 
 }          
          jQuery(SectionToggle.headers).each(function(index,elem ) {         
@@ -127,7 +128,7 @@ check_status: function() {
 
 set_headers: function() {
     var nheaders = parseInt(JSINFO['se_headers'])+1; 
-
+    var toc_headers_xcl = "";
     var xclheaders=new Array(0,0,0,0,0,0,0);    
     if(JSINFO['se_xcl_headers']) {
         xcl = JSINFO['se_xcl_headers'].split(',');
@@ -156,7 +157,7 @@ set_headers: function() {
 	if (jQuery(which_id).length == 0) {
 		   JSINFO['no_ini'] = 1;			  
 	}	
-	
+
 
    // JSINFO['no_ini'] = 1;
     if( JSINFO['no_ini'] ) {  
@@ -184,22 +185,37 @@ set_headers: function() {
            if(qstr)  qstr  += ',';
            qstr  += tagname;            
 	});
-           // alert(qstr);
-           this.headers =  qstr;
+         this.headers =  qstr;
           return;  
     }
 
     for (var i = 1; i < nheaders; i++) {
-        if(xclheaders[i]) continue;
+        if(xclheaders[i]) {
+          this.toc_xcl += which_id + ' h' + i +',';
+          continue;
+        }
 	    id_string += which_id + ' h' + i;
         if(i < nheaders-1) id_string +=','; 
     }
     id_string = id_string.replace(/,+$/,"");
-    //alert(id_string);
     this.headers = id_string;
+    
+    this.toc_xcl  = this.toc_xcl.replace(/,+$/,"");  
+    jQuery(this.toc_xcl).each(function(index,elem ) {    
+         var id = jQuery(this).attr('id');
+         if(id) {
+         id =  id.replace(/\s/g, "_");    
+         toc_headers_xcl += id + ',';
+        }     
+   });
+  
+   this.toc_xcl = ">>"+ toc_headers_xcl;
+   //console.log(this.toc_xcl);
+   
 },
 
 headers: "",
+toc_xcl: "",
 device_class: 'desktop',
 is_active: false,
 hash: "",
