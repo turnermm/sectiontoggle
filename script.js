@@ -1,5 +1,7 @@
 
-jQuery( document ).ready(function() {
+//jQuery( document ).ready(function() {
+jQuery (function() {
+
 function escapeRegExp (expr) {   
   return expr.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); 
 }
