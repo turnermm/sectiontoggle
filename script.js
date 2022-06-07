@@ -76,6 +76,10 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
                      if(skip)  jQuery(elem).next().toggle();
                }
               }
+          if(JSINFO['start_open'])  {
+            SectionToggle.open_all();
+        }
+              
 
         });
     }
