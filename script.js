@@ -96,7 +96,8 @@ checkheader : function (el,index) {
 
 open_all: function () {
 jQuery(this.headers).each(function(index,elem ) {   
-      if(!this.getAttribute('class').match(/toggle/)) {
+      
+      if(this.getAttribute('class') && !this.getAttribute('class').match(/toggle/)) {
 		  jQuery(elem).removeClass('st_closed').addClass('st_opened');
           jQuery(elem).next().show();
        }   
