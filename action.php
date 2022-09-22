@@ -12,6 +12,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
      * Register its handlers with the DokuWiki's event controller
      */
     function register(Doku_Event_Handler $controller) {
+        global $JSINFO;
+        $JSINFO['start_open'] = $this->getConf('start_open');
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, '_jsinfo');
     }
 
