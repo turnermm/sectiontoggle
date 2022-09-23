@@ -14,4 +14,6 @@ $meta['incl_ns'] = array('string');
 $meta['incl_pg'] = array('string');
 $meta['h_ini_open'] = array('string');
 $meta['toc_toggle'] = array('onoff');
+$meta['start_open'] = array('onoff');
+
 

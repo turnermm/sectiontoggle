@@ -48,6 +48,7 @@ class syntax_plugin_sectiontoggle extends DokuWiki_Syntax_Plugin {
 
     function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
+           $renderer->nocache();
            list($state,$match) = $data;
             switch ($state) {          
               case DOKU_LEXER_SPECIAL :    

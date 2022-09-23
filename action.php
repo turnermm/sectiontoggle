@@ -12,6 +12,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
      * Register its handlers with the DokuWiki's event controller
      */
     function register(Doku_Event_Handler $controller) {
+        global $JSINFO;
+        $JSINFO['start_open'] = $this->getConf('start_open');
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, '_jsinfo');
     }
 
@@ -70,6 +72,8 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
 	   $JSINFO['h_ini_open'] = preg_replace('/\s+/','_',$JSINFO['h_ini_open']);	
        $alt_mobile = $this->getConf('mobile_alt');
 	   $JSINFO['no_ini'] = 0;
+       $JSINFO['start_open'] = $this->getConf('start_open');
+       
        
       
            $JSINFO['se_device'] = trim($this->device_type()) ;	
