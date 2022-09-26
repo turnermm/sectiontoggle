@@ -12,8 +12,6 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
      * Register its handlers with the DokuWiki's event controller
      */
     function register(Doku_Event_Handler $controller) {
-        global $JSINFO;
-        $JSINFO['start_open'] = $this->getConf('start_open');
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, '_jsinfo');
     }
 
@@ -25,10 +23,11 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
         global $ACT;
         global $conf, $ID;
 
+
         $JSINFO['se_suspend']=0;   
         $NS_inc = implode("|",$this->normalize_names($this->getConf('incl_ns'),true));      
         if($NS_inc && !preg_match("/($NS_inc)[^:]/",$ID)) {		         
-         $JSINFO['se_suspend']=1;                           
+         $JSINFO['se_suspend']=1;     
 		  return;
         }
               
@@ -40,7 +39,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
                          $JSINFO['toc_xcl'] = 1;                        
 		     return;
         }
-        // msg( $id_inc);
+      
         $NS = implode("|",$this->normalize_names($this->getConf('xcl_ns'),true));
         $JSINFO['se_suspend']=0;
         if($NS && preg_match("/($NS)[^:]/",$ID)) {		
@@ -62,6 +61,7 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        }
        $p = $this->getConf('platform');
        $JSINFO['se_platform'] = $p[0];
+     //  msg( $JSINFO['se_platform']);
        $headers = $this->getConf('headers');
        $JSINFO['se_headers'] = $headers[1];       
        $xcl_headers = $this->getConf('xcl_headers');        
@@ -73,10 +73,13 @@ class action_plugin_sectiontoggle extends DokuWiki_Action_Plugin {
        $alt_mobile = $this->getConf('mobile_alt');
 	   $JSINFO['no_ini'] = 0;
        $JSINFO['start_open'] = $this->getConf('start_open');
-       
-       
       
-           $JSINFO['se_device'] = trim($this->device_type()) ;	
+           $JSINFO['se_device'] = trim($this->device_type()) ;
+           $acl = auth_quickaclcheck($ID);           
+           if($JSINFO['se_device'] == 'phone' || $acl < AUTH_EDIT) {
+               $JSINFO['start_open'] = 0;
+           }               
+          // msg($JSINFO['se_device']);
 		      if($p != 'all')
               {
                   if($JSINFO['se_device'] == 'desktop' || $JSINFO['se_device'] == 'computer' || $JSINFO['se_device'] == 'tablet') return;                   
