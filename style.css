@@ -8,3 +8,18 @@
 	vertical-align: middle;
 	padding-right: 0.25em;
 }
+
+.section_toggle {
+	cursor: pointer;
+	display: inline-block;
+	border-radius: 4px;
+}
+
+.section_toggle:hover {
+	background-color: #337AB7;
+	color: #ffffff;
+}
+
+.section_toggle span {
+	display: none;
+}

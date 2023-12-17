@@ -16,4 +16,5 @@ $lang['h_ini_open'] = 'List of header texts, separated by double semi-colons, wh
      '<br /><code><b>header-text;;header-text;;. . .</b></code>';
 $lang['toc_toggle'] = 'Prevent TOC from toggling headers';
 $lang['start_open'] = 'Start page with all toggles open.';
+$lang['show_section_toggle_button'] = 'Show section toggle button in action menu';
  

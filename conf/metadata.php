@@ -15,5 +15,6 @@ $meta['incl_pg'] = array('string');
 $meta['h_ini_open'] = array('string');
 $meta['toc_toggle'] = array('onoff');
 $meta['start_open'] = array('onoff');
+$meta['show_section_toggle_button'] = array('onoff');
 
 
