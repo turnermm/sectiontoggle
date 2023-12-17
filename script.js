@@ -85,146 +85,153 @@ jQuery("ul.toc li div.li a, ul.toc li a").click(function(){
     }
 });
 var SectionToggle = {
-checkheader : function (el,index) {
-   var classes = el.getAttribute('class');  
-  if(!classes.match(/(header__\d+)/)) return;
-  
-    jQuery(el).toggleClass('st_closed st_opened');
+  checkheader: function (el, index) {
+    var classes = el.getAttribute("class");
+    if (!classes.match(/(header__\d+)/)) return;
+
+    jQuery(el).toggleClass("st_closed st_opened");
     jQuery(el).next().toggle();
-  
-},
+  },
 
-open_all: function () {
-jQuery(this.headers).each(function(index,elem ) { 
-      if(this.getAttribute('class') && !this.getAttribute('class').match(/toggle/)) {
-		  jQuery(elem).removeClass('st_closed').addClass('st_opened');
-          jQuery(elem).next().show();
-       }   
-  });
-},
+  open_all: function () {
+    jQuery(this.headers).each(function (index, elem) {
+      if (
+        this.getAttribute("class") &&
+        !this.getAttribute("class").match(/toggle/)
+      ) {
+        jQuery(elem).removeClass("st_closed").addClass("st_opened");
+        jQuery(elem).next().show();
+      }
+    });
+  },
 
-close_all: function () {
-jQuery(this.headers).each(function(index,elem ) {   
-     if(!this.getAttribute('class').match(/toggle/)) {
-	   jQuery(elem).removeClass('st_opened').addClass('st_closed');
-       jQuery(elem).next().hide();
-     }
-  });
-},
-check_status: function() {   
-    if(JSINFO.se_platform == 'n' ) return;
-    if(JSINFO.se_act != 'show') return;
-    if(JSINFO.se_platform == 'a') {
-        this.is_active = true;               
+  close_all: function () {
+    jQuery(this.headers).each(function (index, elem) {
+      if (!this.getAttribute("class").match(/toggle/)) {
+        jQuery(elem).removeClass("st_opened").addClass("st_closed");
+        jQuery(elem).next().hide();
+      }
+    });
+  },
+  check_status: function () {
+    if (JSINFO.se_platform == "n") return;
+    if (JSINFO.se_act != "show") return;
+    if (JSINFO.se_platform == "a") {
+      this.is_active = true;
+    } else if (JSINFO.se_platform == "m" && this.device_class.match(/mobile/)) {
+      this.is_active = true;
     }
-    else if(JSINFO.se_platform == 'm' && this.device_class.match(/mobile/)) {
-        this.is_active = true; 
-    }       
-    
-    if(this.is_active) {
-         /*normalize url hash */
-        if (window.location.hash) {
-          SectionToggle.hash = window.location.hash.toLowerCase(); 
-          SectionToggle.hash = SectionToggle.hash.replace(/#/,"");
-          SectionToggle.hash = SectionToggle.hash.replace(/\s/g, "_");      
-        }                           
-        this.set_headers();
-    }
-},
 
-set_headers: function() {
-    var nheaders = parseInt(JSINFO['se_headers'])+1; 
+    if (this.is_active) {
+      /*normalize url hash */
+      if (window.location.hash) {
+        SectionToggle.hash = window.location.hash.toLowerCase();
+        SectionToggle.hash = SectionToggle.hash.replace(/#/, "");
+        SectionToggle.hash = SectionToggle.hash.replace(/\s/g, "_");
+      }
+      this.set_headers();
+    }
+  },
+
+  set_headers: function () {
+    var nheaders = parseInt(JSINFO["se_headers"]) + 1;
     var toc_headers_xcl = "";
-    var xclheaders=new Array(0,0,0,0,0,0,0);    
-    if(JSINFO['se_xcl_headers']) {
-        xcl = JSINFO['se_xcl_headers'].split(',');
-        for(var i =0; i<xcl.length; i++) {
-           xclheaders[xcl[i]] = 1;
-        }
+    var xclheaders = new Array(0, 0, 0, 0, 0, 0, 0);
+    if (JSINFO["se_xcl_headers"]) {
+      xcl = JSINFO["se_xcl_headers"].split(",");
+      for (var i = 0; i < xcl.length; i++) {
+        xclheaders[xcl[i]] = 1;
+      }
     }
-    
-    var which_id =  '#dokuwiki__content';           
-    if(JSINFO['se_name'] !=  '_empty_' && JSINFO['se_template'] == 'other') {
-      which_id = JSINFO['se_name'];
+
+    var which_id = "#dokuwiki__content";
+    if (JSINFO["se_name"] != "_empty_" && JSINFO["se_template"] == "other") {
+      which_id = JSINFO["se_name"];
     }
-   
-  /* if(JSINFO['alt_tpl']) { 
+
+    /* if(JSINFO['alt_tpl']) { 
     alert(JSINFO['alt_tpl']);
     }
     else alert(JSINFO['se_template']);
 	*/
 
-    if (jQuery('div #section__toggle').length > 0){
-          which_id =  '#section__toggle';             
-    }             
-    which_id = 'div ' + which_id;
+    if (jQuery("div #section__toggle").length > 0) {
+      which_id = "#section__toggle";
+    }
+    which_id = "div " + which_id;
     var id_string = "";
 
-	if (jQuery(which_id).length == 0) {
-		   JSINFO['no_ini'] = 1;			  
-	}	
+    if (jQuery(which_id).length == 0) {
+      JSINFO["no_ini"] = 1;
+    }
 
+    // JSINFO['no_ini'] = 1;
+    if (JSINFO["no_ini"]) {
+      var qstr = "";
 
-   // JSINFO['no_ini'] = 1;
-    if( JSINFO['no_ini'] ) {  
-	    var qstr = ""; 	    
-		
-        jQuery( ":header" ).each(function(index,elem ) { 
-		
-        var $id, $class =  jQuery(this).attr('class'); 
-		var tagname = jQuery(this).prop("tagName").toLowerCase();
-		   matches = tagname.match(/h(\d)/);
-		   if(matches[1] > JSINFO['se_headers'] || xclheaders[matches[1]]) return;		   
-             
-		  
-           if($class) {
-			   if($class.match(/sr-only|toggle/) ) return; 
-			   var $classes = $class.match(/sectionedit\d+/);                           
-			   if($classes) {	            
-				  tagname = tagname + "." + $classes[0];
-			   }
-           }
-		   else {
-			   $id = jQuery(this).attr('id');
-			   tagname = tagname + "#" + $id;
-		   }
-           if(qstr)  qstr  += ',';
-           qstr  += tagname;            
-	});
-         this.headers =  qstr;
-          return;  
+      jQuery(":header").each(function (index, elem) {
+        var $id,
+          $class = jQuery(this).attr("class");
+        var tagname = jQuery(this).prop("tagName").toLowerCase();
+        matches = tagname.match(/h(\d)/);
+        if (matches[1] > JSINFO["se_headers"] || xclheaders[matches[1]]) return;
+
+        if ($class) {
+          if ($class.match(/sr-only|toggle/)) return;
+          var $classes = $class.match(/sectionedit\d+/);
+          if ($classes) {
+            tagname = tagname + "." + $classes[0];
+          }
+        } else {
+          $id = jQuery(this).attr("id");
+          tagname = tagname + "#" + $id;
+        }
+        if (qstr) qstr += ",";
+        qstr += tagname;
+      });
+      this.headers = qstr;
+      return;
     }
 
     for (var i = 1; i < nheaders; i++) {
-        if(xclheaders[i]) {
-          this.toc_xcl += which_id + ' h' + i +',';
-          continue;
-        }
-	    id_string += which_id + ' h' + i;
-        if(i < nheaders-1) id_string +=','; 
+      if (xclheaders[i]) {
+        this.toc_xcl += which_id + " h" + i + ",";
+        continue;
+      }
+      id_string += which_id + " h" + i;
+      if (i < nheaders - 1) id_string += ",";
     }
-    id_string = id_string.replace(/,+$/,"");
+    id_string = id_string.replace(/,+$/, "");
     this.headers = id_string;
-    
-    this.toc_xcl  = this.toc_xcl.replace(/,+$/,"");  
-    jQuery(this.toc_xcl).each(function(index,elem ) {    
-         var id = jQuery(this).attr('id');
-         if(id) {
-         id =  id.replace(/\s/g, "_");    
-         toc_headers_xcl += id + ',';
-        }     
-   });
-  
-   this.toc_xcl = ">>"+ toc_headers_xcl;
-   //console.log(this.toc_xcl);
-   
-},
 
-headers: "",
-toc_xcl: "",
-device_class: 'desktop',
-is_active: false,
-hash: "",
+    this.toc_xcl = this.toc_xcl.replace(/,+$/, "");
+    jQuery(this.toc_xcl).each(function (index, elem) {
+      var id = jQuery(this).attr("id");
+      if (id) {
+        id = id.replace(/\s/g, "_");
+        toc_headers_xcl += id + ",";
+      }
+    });
+
+    this.toc_xcl = ">>" + toc_headers_xcl;
+    //console.log(this.toc_xcl);
+  },
+  updateSections: function () {
+    if (this.toggleState === "open") {
+      this.close_all();
+      this.toggleState = "close";
+    } else {
+      this.open_all();
+      this.toggleState = "open";
+    }
+  },
+
+  toggleState: "open",
+  headers: "",
+  toc_xcl: "",
+  device_class: "desktop",
+  is_active: false,
+  hash: "",
 };
 function icke_OnMobileFix() {
 	if(JSINFO['se_platform'] != 'm' && JSINFO['se_platform'] != 'a') return; 
